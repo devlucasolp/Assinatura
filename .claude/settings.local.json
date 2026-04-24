@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx prisma *)",
+      "Bash(python3 -c ' *)",
+      "Skill(memory-ingest)",
+      "WebSearch"
+    ]
+  }
+}
