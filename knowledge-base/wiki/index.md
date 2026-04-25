@@ -53,7 +53,11 @@ _Nenhuma página ainda._
 
 ## 📚 Outputs (Queries Arquivadas)
 
-_Nenhuma query arquivada ainda._
+- [Pesquisa — Geração de Imagens e PDF no Designer](outputs/pesquisa-geracao-imagens-pdf-designer.md) — Opções e recomendações para conectar a tool "Imagem" (stub) e adicionar export PDF ao CanvasEditor (2026-04-24)
+- [Auditoria Designer — Jornada da Gabi](outputs/designer-auditoria-jornada.canvas) — Canvas Obsidian: jornada do cliente, auditoria de configurações, gaps por etapa e urgências (2026-04-24)
+- [Plano de Implementação — MVP 3 e 4](outputs/designer-plano-implementacao.md) — Sprints, necessidades técnicas, riscos e critérios de aceite para fechar os gaps do Designer (2026-04-24)
+- [Auditoria — Libs e Configs](outputs/auditoria-libs-configs.md) — 9 problemas mapeados: L1+L2 resolvidos Sprint 0, L3–L9 em aberto (2026-04-24, atualizado 2026-04-25)
+- [Auditoria — UX, Lógica e Necessidades do Designer](outputs/auditoria-ux-logica-designer.md) — Sprint 0 concluído; fluxo de config/referencias; gaps UX+segurança; needs para Sprint 1 (2026-04-25)
 
 ---
 

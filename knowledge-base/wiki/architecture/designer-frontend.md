@@ -4,7 +4,7 @@ type: architecture
 tags: [next.js, react, typescript, app-router, canvas-editor, branding, dynamic-routes, sse]
 sources: [designer/frontend/src/app/[marca]/fabrica/page.tsx, designer/frontend/src/lib/api.ts, designer/frontend/src/components/Editor/CanvasEditor.tsx, designer/frontend/AGENTS.md]
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-04-25
 ---
 
 # Arquitetura Frontend — Designer
@@ -23,10 +23,10 @@ Next.js com App Router e TypeScript. A rota dinâmica `[marca]` isola o contexto
 /galeria                   ← galeria global de posts
 
 /[marca]/
-  configuracoes/           ← hub de config da marca
-    branding/              ← cores, fontes, logo ⚠️ sem handler de save
-    agent/                 ← agentPrompt, guidelines ⚠️ sem handler de save
-    referencias/           ← benchmarks ⚠️ usa mock, não chama backend
+  configuracoes/           ← hub de config da marca (página estática com 3 links)
+    branding/              ← cores, fontes, logo — chama PUT /api/settings/:slug/config ✅
+    agent/                 ← agentPrompt, guidelines — chama PUT /api/settings/:slug/config ✅
+    referencias/           ← CRUD completo: cria → polling 5s → exibe insights ✅
   fabrica/                 ← chat IA (Gemini + Nano Banana)
   editor/                  ← canvas editor de layers
   galeria/                 ← galeria de posts da marca
@@ -46,10 +46,11 @@ Next.js com App Router e TypeScript. A rota dinâmica `[marca]` isola o contexto
 ### Fábrica — fluxo de chat
 
 1. Usuário seleciona ferramenta (Gemini / Nano Banana / Imagem / Animação)
-2. `sendMessage()` faz `POST /api/ai/:slug/chat` ou `/generate-design`
-3. Para Gemini: lê SSE stream, atualiza mensagem chunk a chunk (estado React)
-4. Para Nano Banana: espera JSON, exibe link para galeria/editor
-5. Image e Animação: stubs com timeout de simulação — **não conectados ao backend**
+2. `sendMessage()` faz `POST /api/ai/:slug/chat`, `/generate-design` ou `/generate-image`
+3. Para Gemini: lê SSE stream (`fetch + ReadableStream`), atualiza mensagem chunk a chunk
+4. Para Nano Banana: espera JSON, exibe link para o editor com `postId`
+5. Para Imagem: chama `/generate-image`, exibe `dataUrl` inline no chat + link para editor ✅
+6. Animação: stub com timeout — não conectada ao backend
 
 ### Autenticação no frontend
 
@@ -61,7 +62,7 @@ Next.js com App Router e TypeScript. A rota dinâmica `[marca]` isola o contexto
 
 | Arquivo | Uso |
 |---|---|
-| `src/lib/api.ts` | Wrapper de fetch para o backend |
+| `src/lib/api.ts` | Wrapper de fetch para o backend — usa `NEXT_PUBLIC_API_URL` env var (Sprint 0); exporta `API_BASE` para SSE |
 | `src/lib/hooks.ts` | Custom hooks React |
 | `src/lib/ffmpegVideo.ts` | Exportação de vídeo — **não implementada, prevista para Animação** |
 
@@ -78,7 +79,9 @@ O `AGENTS.md` avisa: *"This is NOT the Next.js you know — breaking changes may
 ## Learnings
 
 - `ffmpegVideo.ts` indica intenção de exportação de vídeo futura — não bloquear mudanças no `CanvasEditor` que quebraria esse export.
-- As páginas de configuração têm UI completa mas handlers de save ausentes — risco de usuário pensar que salvou e não salvou. Prioridade de correção alta.
+- **Correção 2026-04-25:** as páginas de configuração JÁ tinham handlers de save corretos. A inacurácia anterior estava na wiki, não no código.
+- **Editor e posts de imagem:** `editor/page.tsx` faz `content.layers || []` — posts gerados pela tool Imagem têm `content.type === 'image'` sem `layers`. Canvas fica vazio silenciosamente. Próximo gap a fechar.
+- **Markdown no chat:** mensagens da Fábrica são renderizadas como texto puro (`<p>`). Links `[Editor](...)` não viram âncoras. Gabi não consegue clicar.
 
 ## Relacionados
 

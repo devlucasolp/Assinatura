@@ -4,7 +4,15 @@
       "Bash(npx prisma *)",
       "Bash(python3 -c ' *)",
       "Skill(memory-ingest)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(git submodule *)",
+      "Bash(git config *)",
+      "Bash(gh api *)",
+      "Bash(gh auth *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

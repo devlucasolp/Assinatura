@@ -26,9 +26,9 @@ Primeira consolidação realizada em 2026-04-22. Wiki populada com diagnóstico 
 ## Features em Produção
 
 <!-- auto:features -->
-- [Agente Designer](features/agente-designer.md) — App designer IA | git: `e809a0f` (19/04) | gaps: save configs, auth nas rotas
+- [Agente Designer](features/agente-designer.md) — App designer IA | git: `e809a0f` (19/04) | status: ✅ gaps principais resolvidos (auth, pdf, onboarding, refs)
 - [Secretária A.I. (Gabi)](features/secretaria-ai-gabi.md) — Agente WhatsApp + atas + gerador de imagens | 4 meses | até 14/07/2026 | Mês 1 ✅ (21/04)
-- [Automação de Notificação (Marcelle)](features/automacao-notificacao-marcelle.md) — Visibilidade Asana via WhatsApp | 1 mês | prazo 21/04/2026 ⚠️ verificar status
+- [Automação de Notificação (Marcelle)](features/automacao-notificacao-marcelle.md) — Visibilidade de projetos via WhatsApp + reports Asana | 1 mês | prazo 21/04/2026 ⚠️ verificar status
 <!-- /auto:features -->
 
 ## Integrações Ativas

@@ -22,7 +22,8 @@
 		{"id":"marcelle-node","type":"file","file":"wiki/stakeholders/marcelle.md","x":1340,"y":1950,"width":320,"height":180},
 		{"id":"ingest4-2026-04-22","type":"text","text":"# 📥 2026-04-22 — Ingest #4\n\n**Fonte:** Bot_Gabi/ (código)\n\nBot Gabi (MVP 1✅ MVP 2✅)","x":900,"y":870,"width":340,"height":160,"color":"6"},
 		{"id":"bot-gabi-node","type":"file","file":"wiki/features/bot-gabi.md","x":1340,"y":2160,"width":320,"height":180},
-		{"id":"frontend-arch-node","type":"file","file":"wiki/architecture/designer-frontend.md","x":1880,"y":1140,"width":320,"height":1540}
+		{"id":"frontend-arch-node","type":"file","file":"wiki/architecture/designer-frontend.md","x":1880,"y":1140,"width":320,"height":1540},
+		{"id":"commit-2026-04-25","type":"text","text":"# 💾 2026-04-25 — Commit\n\n**Feature:** Agente Designer\n\n✅ Export PDF\n✅ Onboarding Wizard\n✅ Auth + Ownership\n✅ Referências Endpoint","x":900,"y":1100,"width":340,"height":180,"color":"4"}
 	],
 	"edges":[
 		{"id":"e-schema-root","fromNode":"schema-node","fromSide":"right","toNode":"root-2026-04-22","toSide":"left","label":"contrato"},
@@ -49,6 +50,7 @@
 		{"id":"e-marcelle-feature","fromNode":"marcelle-node","fromSide":"left","toNode":"marcelle-feature-node","toSide":"bottom","label":"produto"},
 		{"id":"e-ingest3-ingest4","fromNode":"ingest3-2026-04-22","fromSide":"bottom","toNode":"ingest4-2026-04-22","toSide":"top","label":"código"},
 		{"id":"e-ingest4-bot","fromNode":"ingest4-2026-04-22","fromSide":"right","toNode":"bot-gabi-node","toSide":"left","label":"feature"},
-		{"id":"e-gabi-bot","fromNode":"gabi-node","fromSide":"left","toNode":"bot-gabi-node","toSide":"right","label":"usa"}
+		{"id":"e-gabi-bot","fromNode":"gabi-node","fromSide":"left","toNode":"bot-gabi-node","toSide":"right","label":"usa"},
+		{"id":"e-ingest4-commit","fromNode":"ingest4-2026-04-22","fromSide":"bottom","toNode":"commit-2026-04-25","toSide":"top","label":"commit"}
 	]
 }

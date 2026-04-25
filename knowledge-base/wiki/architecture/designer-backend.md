@@ -4,7 +4,7 @@ type: architecture
 tags: [express, prisma, postgresql, typescript, auth, gemini, nano-banana, backend]
 sources: [designer/backend/src/app.ts, designer/backend/src/routes/ai.ts, designer/backend/src/middleware/auth.ts, designer/backend/prisma/schema.prisma]
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-04-25
 ---
 
 # Arquitetura Backend — Designer
@@ -23,8 +23,9 @@ API REST em Express + TypeScript, servindo na porta 4000. Conecta ao PostgreSQL 
 | Framework | Express 5 |
 | ORM | Prisma + PostgreSQL |
 | Auth | JWT (middleware `auth.ts`) |
-| LLM (chat/briefing) | Google Gemini 2.0 Flash Lite (`@google/generative-ai`) |
-| LLM (design) | Gemini 2.0 Flash Lite em JSON mode — alias "Nano Banana" |
+| LLM (chat/briefing/análise) | Google Gemini 2.5 Flash Lite (`@google/genai` SDK v1) |
+| LLM (design JSON) | Gemini 2.5 Flash Lite em JSON mode — alias "Nano Banana" |
+| LLM (geração de imagem) | Gemini 2.5 Flash Image (`responseModalities: ['IMAGE']`) |
 
 ### Estrutura de rotas
 
@@ -43,13 +44,18 @@ POST   /api/posts
 GET    /api/posts/:id
 PUT    /api/posts/:id
 
-GET    /api/settings
-PUT    /api/settings
+GET    /api/settings/:slug/config
+PUT    /api/settings/:slug/config
+
+GET    /api/settings/:slug/referencias
+POST   /api/settings/:slug/referencias
+DELETE /api/settings/:slug/referencias/:id
 
 POST   /api/ai/:slug/chat              ← SSE streaming
 POST   /api/ai/:slug/analyze-benchmark
 POST   /api/ai/:slug/generate-briefing
 POST   /api/ai/:slug/generate-design
+POST   /api/ai/:slug/generate-image    ← novo Sprint 0
 
 GET    /health
 ```
@@ -66,7 +72,7 @@ requestLogger → (auth) → route handler → errorHandler
 
 ### nanoBanana.ts — Design Engine
 
-Gemini 2.0 Flash Lite com `responseMimeType: 'application/json'` e system instruction que define regras de layout (z-index, coordenadas relativas à dimensão do formato). Retorna `DesignState[]` — array de slides, cada slide com `layers[]`.
+Gemini 2.5 Flash Lite com `responseMimeType: 'application/json'` e system instruction que define regras de layout (z-index, coordenadas relativas à dimensão do formato). Retorna `DesignState[]` — array de slides, cada slide com `layers[]`.
 
 ```typescript
 interface Layer {
@@ -99,6 +105,8 @@ interface DesignState {
 
 - Gemini pode retornar JSON dentro de bloco markdown mesmo com `responseMimeType: 'application/json'` — aplicar `.replace(/\`\`\`json/g, '')` como fallback.
 - Rate limit 429 no Free Tier é frequente; tratar explicitamente antes do `next(error)` genérico.
+- **SDK `@google/genai` v1**: `chunk.text` é propriedade (não método); `ai.models.generateContentStream()` em vez de `model.generateContentStream()`.
+- **Ownership gap em settings.ts**: `getBrandId(slug)` verifica se a marca existe mas não verifica se pertence ao usuário autenticado — qualquer JWT válido acessa qualquer marca.
 
 ## Relacionados
 

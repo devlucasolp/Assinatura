@@ -4,14 +4,14 @@ type: feature
 tags: [designer, gemini, nano-banana, next.js, express, prisma, canvas-editor, branding, posts]
 sources: [designer/backend/src/routes/ai.ts, designer/backend/src/lib/nanoBanana.ts, designer/frontend/src/app/[marca]/fabrica/page.tsx, designer/backend/prisma/schema.prisma]
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-04-25
 ---
 
 # Agente Designer
 
 ## Resumo
 
-App web de geração de designs visuais com IA, construído em Next.js (frontend) + Express (backend) + PostgreSQL via Prisma. Cada marca tem seu próprio agente configurado (guidelines, prompt, cores, fontes). O usuário descreve o que quer na "Fábrica" e o backend chama o Nano Banana (Gemini 2.0 Flash Lite) que devolve um JSON de camadas (layers); o editor visual renderiza e exporta as camadas. Base do produto já está no git (`designer/`, commit `e809a0f`, 2026-04-19).
+App web de geração de designs visuais com IA, construído em Next.js (frontend) + Express (backend) + PostgreSQL via Prisma. Cada marca tem seu próprio agente configurado (guidelines, prompt, cores, fontes). O usuário descreve o que quer na "Fábrica" e o backend chama o Nano Banana (Gemini 2.5 Flash Lite) que devolve um JSON de camadas (layers); o editor visual renderiza e exporta as camadas. Sprint 0 concluído em 2026-04-25: SDK migrado para `@google/genai`, modelos atualizados para Gemini 2.5, tool Imagem conectada, export PNG funcional.
 
 ## Detalhes
 
@@ -22,10 +22,19 @@ Usuário descreve no chat (Fábrica page)
   → POST /api/ai/:slug/generate-design
     → getBrandContext(slug)         ← BrandConfig no Postgres
     → generateDesign() [nanoBanana.ts]
-      → Gemini 2.0 Flash Lite (JSON mode)
+      → Gemini 2.5 Flash Lite (JSON mode)
       → retorna DesignState[] (array de slides com layers)
     → prisma.post.create (status: DRAFT, content: Json)
   → frontend exibe link para galeria/editor
+
+Fluxo alternativo — Tool Imagem:
+  → POST /api/ai/:slug/generate-image
+    → getBrandContext(slug)
+    → Gemini 2.5 Flash Image (responseModalities: ['IMAGE'])
+    → extrai base64 da resposta
+    → prisma.post.create (status: READY, content: { type: 'image', dataUrl })
+    → resposta inclui dataUrl inline
+  → frontend exibe imagem no chat + link para editor
 ```
 
 ### Endpoints de IA (`/api/ai/:slug/`)
@@ -36,6 +45,7 @@ Usuário descreve no chat (Fábrica page)
 | `/:slug/analyze-benchmark` | POST | Análise de referência/concorrente → insights em Markdown |
 | `/:slug/generate-briefing` | POST | Gera guidelines + agentPrompt + suggestedColors (JSON) |
 | `/:slug/generate-design` | POST | Gera DesignState[] via Nano Banana → salva como Post DRAFT |
+| `/:slug/generate-image` | POST | Gera imagem via Gemini 2.5 Flash Image → salva como Post READY com dataUrl |
 
 ### Modelos de Dados (Prisma)
 
@@ -49,7 +59,7 @@ Usuário descreve no chat (Fábrica page)
 
 ### Nano Banana — Gerador de Design
 
-- **Modelo:** `gemini-2.0-flash-lite` com `responseMimeType: 'application/json'`
+- **Modelo:** `gemini-2.5-flash-lite` com `responseMimeType: 'application/json'`
 - **Output:** Array de `DesignState` — cada item tem `format`, `width`, `height`, `backgroundColor`, `layers[]`
 - **Layer types:** `text`, `image`, `shape` — cada uma com `x, y, width, height, zIndex, color, fontFamily, fontSize`
 - **Dimensões:** carousel/single = 1080×1080; story = 1080×1920
@@ -60,15 +70,19 @@ Usuário descreve no chat (Fábrica page)
 |---|---|---|
 | Gemini (chat) | ✅ Funcional | `/chat` SSE streaming |
 | Nano Banana (design) | ✅ Funcional | `/generate-design` |
-| Imagem | ⚠️ Stub | Não conectado |
-| Animação (vídeo) | ⚠️ Stub | Não conectado |
+| Imagem | ✅ Conectado (Sprint 0) | `/generate-image` — Gemini 2.5 Flash Image |
+| Animação (vídeo) | ⚠️ Stub | Não conectado — `ffmpegVideo.ts` existe mas não chamado |
 
-### Gaps UI ↔ Backend conhecidos
+### Gaps UI ↔ Backend — Estado Atual (2026-04-25)
 
-- **Configurações de marca:** páginas `branding/`, `agent/`, `referencias/` têm UI mas **não chamam o backend** — botões "Salvar" são fake
-- **Criação de nova marca:** botão sem handler implementado
-- **Análise de benchmarks:** frontend usa mock hardcoded, nunca chama `/analyze-benchmark`
-- **Rotas protegidas:** `/api/brands` e `/api/ai/*` têm middleware `auth.ts` mas a aplicação de autenticação está incompleta
+> ⚠️ **Correção:** a afirmação anterior de que as páginas de configuração "não chamam o backend" estava incorreta. As páginas `branding/`, `agent/` e `referencias/` já chamavam o backend corretamente antes do Sprint 0.
+
+- **Configurações de marca:** páginas `branding/` e `agent/` chamam `PUT /api/settings/:slug/config` corretamente. `referencias/` tem CRUD completo com análise em background via Gemini.
+- **Post de imagem no editor:** quando a Gabi abre no editor um post gerado pela tool Imagem, o canvas fica vazio — o editor faz `content.layers || []` mas posts de imagem têm `content.type === 'image'`, sem `layers`. **Aberto.**
+- **Markdown nos balões da Fábrica:** links `[Editor](...)` são exibidos como texto literal. Gabi não consegue clicar diretamente. **Aberto.**
+- **Toast de feedback:** saves de configuração funcionam mas não exibem confirmação visual. **Aberto.**
+- **Ownership check ausente:** qualquer usuário autenticado pode ler/escrever config de qualquer marca pelo slug. **Gap de segurança aberto.**
+- **Criação de nova marca:** botão sem handler implementado. **Aberto.**
 
 ## Decisões Tomadas
 

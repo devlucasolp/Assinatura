@@ -33,3 +33,12 @@ updated: 2026-04-22
 - `2026-04-22 19:00 | ingest | gabi | stakeholders/gabi.md`
 - `2026-04-22 19:00 | ingest | marcelle | stakeholders/marcelle.md`
 - `2026-04-22 19:15 | ingest | bot-gabi | features/bot-gabi.md`
+- `2026-04-24 00:00 | query | Pesquisa geração de imagens e PDF no Designer | outputs/pesquisa-geracao-imagens-pdf-designer.md`
+- `2026-04-24 00:00 | query | Auditoria de jornada + canvas Designer | outputs/designer-auditoria-jornada.canvas, outputs/designer-plano-implementacao.md`
+- `2026-04-24 00:00 | manual | Decisões de produto registradas: export=PNG, storage=PostgreSQL, validação de qualidade pós-UI | outputs/designer-plano-implementacao.md`
+- `2026-04-24 00:00 | query | Auditoria de libs e configs: 9 problemas mapeados (L1–L9) | outputs/auditoria-libs-configs.md`
+- `2026-04-25 00:00 | manual | Sprint 0 concluído: SDK migrado @google/genai, Gemini 2.5, generate-image endpoint, URL via env var | features/agente-designer.md, architecture/designer-backend.md, architecture/designer-frontend.md`
+- `2026-04-25 00:00 | manual | Correção de inacurácias: páginas de config já chamavam backend; Image já estava conectada pós-sprint0 | features/agente-designer.md, architecture/designer-frontend.md`
+- `2026-04-25 00:00 | query | Auditoria UX+Lógica+Necessidades: fluxo config/referencias, gaps auth/segurança/editor | outputs/auditoria-ux-logica-designer.md`
+- `2026-04-25 00:00 | manual | Atualização outputs: L1+L2 marcados resolvidos, T1+T6+T7+T9 marcados done no plano | outputs/auditoria-libs-configs.md, outputs/designer-plano-implementacao.md`
+- `2026-04-25 12:00 | manual | [FEAT/FIX] Commit de features e fixes do Agente Designer (Export PDF, Onboarding, Auth, Ref Background) | features/agente-designer.md, outputs/designer-plano-implementacao.md, outputs/auditoria-ux-logica-designer.md`
