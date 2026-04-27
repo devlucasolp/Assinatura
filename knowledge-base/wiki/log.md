@@ -4,7 +4,7 @@ type: architecture
 tags: [log, timeline]
 sources: []
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-04-27
 ---
 
 # 📜 Log — Append-Only Timeline
@@ -42,3 +42,7 @@ updated: 2026-04-22
 - `2026-04-25 00:00 | query | Auditoria UX+Lógica+Necessidades: fluxo config/referencias, gaps auth/segurança/editor | outputs/auditoria-ux-logica-designer.md`
 - `2026-04-25 00:00 | manual | Atualização outputs: L1+L2 marcados resolvidos, T1+T6+T7+T9 marcados done no plano | outputs/auditoria-libs-configs.md, outputs/designer-plano-implementacao.md`
 - `2026-04-25 12:00 | manual | [FEAT/FIX] Commit de features e fixes do Agente Designer (Export PDF, Onboarding, Auth, Ref Background) | features/agente-designer.md, outputs/designer-plano-implementacao.md, outputs/auditoria-ux-logica-designer.md`
+- `2026-04-27 03:05 | lint | Qualidade: lint e build limpos no Designer (frontend + backend); ESLint adicionado no backend; migração de <img> para next/image | workflows/qualidade-lint-build.md`
+- `2026-04-27 03:40 | manual | Notas de operação: corrigido 404 de ícone via manifest; dica de resolução para conflito de next dev e limpeza de .next | workflows/qualidade-lint-build.md`
+- `2026-04-27 18:30 | FEAT | Redesign da Fábrica v2 (Wizard) e Gestão da Galeria (DND/Exclusão) | [[features/fabrica-v2]], [[features/galeria-gestao]]`
+- `2026-04-27 18:45 | FIX | Correção de compatibilidade Next.js 16 para páginas de documentação e z-index de tooltips | [[extras/docs]]`

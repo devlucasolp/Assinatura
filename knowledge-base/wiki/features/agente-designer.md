@@ -4,7 +4,7 @@ type: feature
 tags: [designer, gemini, nano-banana, next.js, express, prisma, canvas-editor, branding, posts]
 sources: [designer/backend/src/routes/ai.ts, designer/backend/src/lib/nanoBanana.ts, designer/frontend/src/app/[marca]/fabrica/page.tsx, designer/backend/prisma/schema.prisma]
 created: 2026-04-22
-updated: 2026-04-25
+updated: 2026-04-27
 ---
 
 # Agente Designer
@@ -69,8 +69,10 @@ Fluxo alternativo — Tool Imagem:
 | Tool | Status | Backend |
 |---|---|---|
 | Gemini (chat) | ✅ Funcional | `/chat` SSE streaming |
+| Fábrica v2 (Wizard) | ✅ Estável (27/04) | [[fabrica-v2]] — Fluxo procedural 3-steps |
 | Nano Banana (design) | ✅ Funcional | `/generate-design` |
 | Imagem | ✅ Conectado (Sprint 0) | `/generate-image` — Gemini 2.5 Flash Image |
+| Galeria (Gestão) | ✅ Estável (27/04) | [[galeria-gestao]] — DND + Exclusão |
 | Animação (vídeo) | ⚠️ Stub | Não conectado — `ffmpegVideo.ts` existe mas não chamado |
 
 ### Gaps UI ↔ Backend — Estado Atual (2026-04-25)
@@ -101,5 +103,6 @@ Fluxo alternativo — Tool Imagem:
 
 - [Arquitetura Backend](../architecture/designer-backend.md) — Express, rotas, auth middleware, Prisma
 - [Arquitetura Frontend](../architecture/designer-frontend.md) — Next.js App Router, [marca] dynamic routes, CanvasEditor
+- [Qualidade — Lint e Build (Designer)](../workflows/qualidade-lint-build.md) — estabilidade de lint/build e evidências
 - [Secretária A.I. (Gabi)](secretaria-ai-gabi.md) — este app é a base do Agente Designer mencionada no diagnóstico
 - [Infraestrutura Técnica](../integrations/infraestrutura-tecnica.md) — estado das integrações

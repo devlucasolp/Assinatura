@@ -4,7 +4,7 @@ type: architecture
 tags: [overview, synthesis]
 sources: []
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-04-27
 ---
 
 # 🗺️ Overview — Síntese Dinâmica do Projeto
@@ -15,6 +15,8 @@ updated: 2026-04-22
 ## Estado Atual
 
 Primeira consolidação realizada em 2026-04-22. Wiki populada com diagnóstico do projeto (Diagnostico_Assinatura.docx + CONTEXTO.md). O repositório git (`designer/`) contém o Agente Designer em initial commit de 19/04/2026. A Automação Marcelle não tem commits — verificar status.
+
+Em 2026-04-27, foi feita uma passada de qualidade: lint e build do Designer (frontend + backend) estão passando de forma limpa, reduzindo risco de regressões e ruído no CI local.
 
 ## Pilares Arquiteturais
 
@@ -27,6 +29,8 @@ Primeira consolidação realizada em 2026-04-22. Wiki populada com diagnóstico 
 
 <!-- auto:features -->
 - [Agente Designer](features/agente-designer.md) — App designer IA | git: `e809a0f` (19/04) | status: ✅ gaps principais resolvidos (auth, pdf, onboarding, refs)
+- [Fábrica v2](features/fabrica-v2.md) — Redesign procedural (Wizard) + Preview responsivo | status: ✅ Estável
+- [Galeria Gestão](features/galeria-gestao.md) — DND para pastas + Exclusão de artes | status: ✅ Estável
 - [Secretária A.I. (Gabi)](features/secretaria-ai-gabi.md) — Agente WhatsApp + atas + gerador de imagens | 4 meses | até 14/07/2026 | Mês 1 ✅ (21/04)
 - [Automação de Notificação (Marcelle)](features/automacao-notificacao-marcelle.md) — Visibilidade de projetos via WhatsApp + reports Asana | 1 mês | prazo 21/04/2026 ⚠️ verificar status
 <!-- /auto:features -->

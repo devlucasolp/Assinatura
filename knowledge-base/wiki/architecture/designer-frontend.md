@@ -4,7 +4,7 @@ type: architecture
 tags: [next.js, react, typescript, app-router, canvas-editor, branding, dynamic-routes, sse]
 sources: [designer/frontend/src/app/[marca]/fabrica/page.tsx, designer/frontend/src/lib/api.ts, designer/frontend/src/components/Editor/CanvasEditor.tsx, designer/frontend/AGENTS.md]
 created: 2026-04-22
-updated: 2026-04-25
+updated: 2026-04-27
 ---
 
 # Arquitetura Frontend — Designer
@@ -87,3 +87,4 @@ O `AGENTS.md` avisa: *"This is NOT the Next.js you know — breaking changes may
 
 - [Agente Designer](../features/agente-designer.md) — feature que usa esta arquitetura
 - [Arquitetura Backend](designer-backend.md) — API que o frontend consome
+- [Qualidade — Lint e Build (Designer)](../workflows/qualidade-lint-build.md) — rotina de qualidade e evidências

@@ -4,7 +4,7 @@ type: architecture
 tags: [express, prisma, postgresql, typescript, auth, gemini, nano-banana, backend]
 sources: [designer/backend/src/app.ts, designer/backend/src/routes/ai.ts, designer/backend/src/middleware/auth.ts, designer/backend/prisma/schema.prisma]
 created: 2026-04-22
-updated: 2026-04-25
+updated: 2026-04-27
 ---
 
 # Arquitetura Backend — Designer
@@ -113,3 +113,4 @@ interface DesignState {
 - [Agente Designer](../features/agente-designer.md) — feature que usa esta arquitetura
 - [Arquitetura Frontend](designer-frontend.md) — cliente desta API
 - [Infraestrutura Técnica](../integrations/infraestrutura-tecnica.md) — contexto de implantação
+- [Qualidade — Lint e Build (Designer)](../workflows/qualidade-lint-build.md) — rotina de qualidade e evidências

@@ -11,10 +11,17 @@
             "id": "93041ca7fffbb64c",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Visualização em gráfico"
+              "type": "canvas",
+              "state": {
+                "file": "wiki/outputs/designer-auditoria-jornada.canvas",
+                "viewState": {
+                  "x": 960,
+                  "y": 337.07213765718063,
+                  "zoom": -0.7561246686000402
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "designer-auditoria-jornada"
             }
           }
         ]
@@ -178,20 +185,22 @@
   },
   "active": "93041ca7fffbb64c",
   "lastOpenFiles": [
+    "wiki/outputs/auditoria-ux-logica-designer.md",
+    "wiki/outputs/auditoria-libs-configs.md",
+    "wiki/migrations/2026-04-22.md",
     "wiki/integrations/infraestrutura-tecnica.md",
+    "wiki/features/secretaria-ai-gabi.md",
+    "wiki/features/bot-gabi.md",
+    "wiki/tracking.canvas",
     "wiki/index.md",
     "wiki/stakeholders/amanda-coelho.md",
     "wiki/stakeholders/gabi.md",
     "wiki/stakeholders/assinatura-marca-propria.md",
     "wiki/log.md",
     "wiki/overview.md",
-    "wiki/tracking.canvas",
     "CLAUDE.md",
     "wiki/features/agente-designer.md",
     "wiki/features/automacao-notificacao-marcelle.md",
-    "wiki/features/secretaria-ai-gabi.md",
-    "wiki/features/bot-gabi.md",
-    "wiki/migrations/2026-04-22.md",
     "wiki/stakeholders/marcelle.md",
     "wiki/workflows/escopo-projeto-assinatura.md",
     "wiki/architecture/designer-frontend.md",

@@ -4,7 +4,7 @@ type: architecture
 tags: [index, toc]
 sources: []
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-04-27
 ---
 
 # 🗂️ Index — Catálogo Master
@@ -21,6 +21,8 @@ updated: 2026-04-22
 
 - [Bot Gabi — Secretária A.I.](features/bot-gabi.md) — FastAPI+Python; MVP 1✅ (auto-reply) e MVP 2✅ (atas→Asana) já implementados; deploy EasyPanel
 - [Agente Designer](features/agente-designer.md) — App Next.js+Express de geração de designs via Nano Banana (Gemini JSON mode); base funcional no git
+- [Fábrica v2 — Redesign Procedural](features/fabrica-v2.md) — Novo fluxo wizard 3-steps, preview responsivo e gestão de assets (2026-04-27)
+- [Galeria — Gestão de Ativos](features/galeria-gestao.md) — Drag-and-drop para pastas, exclusão de artes e atualização reativa (2026-04-27)
 - [Secretária A.I. (Gabi)](features/secretaria-ai-gabi.md) — Agente WhatsApp + atas de reunião + gerador de imagens; 4 meses, R$ 1.200/mês × 10
 - [Automação de Notificação (Marcelle)](features/automacao-notificacao-marcelle.md) — Visibilidade de projetos via WhatsApp + reports Asana; 1 mês, R$ 1.000/mês × 10
 
@@ -35,6 +37,7 @@ _Nenhuma página ainda._
 ## 🔄 Workflows
 
 - [Escopo do Projeto Assinatura](workflows/escopo-projeto-assinatura.md) — Contrato Lucas × Assinatura Ltda; dois produtos paralelos (Gabi 4m + Marcelle 1m)
+- [Qualidade — Lint e Build (Designer)](workflows/qualidade-lint-build.md) — Lint e build limpos no frontend e backend (2026-04-27)
 
 ## 👥 Stakeholders
 
