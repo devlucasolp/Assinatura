@@ -49,9 +49,9 @@ _Nenhuma pÃ¡gina ainda. Criar: JWT httpOnly vs localStorage (ADR pendente)._
 
 - [[escopo-projeto-assinatura]] â€” Contrato Lucas Ã— Assinatura Ltda; dois produtos paralelos (Gabi 4m + Marcelle 4m)
 - [[qualidade-lint-build]] â€” Lint e build limpos no frontend e backend (2026-04-27)
-- [[bot-01-backend-gemini-designdocument]] â€” Brief operacional do bot backend: Gemini pesado, contexto ampliado, endpoint experimental e validação DesignDocument
-- [[bot-02-frontend-renderer-designdocument]] â€” Brief operacional do bot frontend: renderer React/CSS seguro para DesignDocument sem mexer no editor
-- [[bot-03-compat-editor-auditoria-designdocument]] â€” Brief operacional do bot de compatibilidade: editor/galeria, helpers, auditoria e falsos positivos
+- [[bot-01-backend-gemini-designdocument]] — Brief operacional do bot backend: Gemini pesado, contexto ampliado, endpoint experimental e validação DesignDocument
+- [[bot-02-frontend-renderer-designdocument]] — Brief operacional do bot frontend: renderer React/CSS seguro para DesignDocument sem mexer no editor
+- [[bot-03-compat-editor-auditoria-designdocument]] — ✅ Concluído: helpers de compatibilidade, extração segura, auditoria e testes contra falsos positivos para o DesignDocument
 - [[designer-timeline-execucao]] — Timeline do Designer atualizada com DesignDocument híbrido, execução paralela por bots e sequência recomendada
 - [[secretaria-ai-sistema]] â€” VisÃ£o de produto: triagemâ†’pipeline; integraÃ§Ãµes WPP/Asana/GAgenda; cronograma 4 meses
 

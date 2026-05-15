@@ -368,3 +368,7 @@ updated: 2026-05-14
 - Files affected: [[design-document-renderer]], [[design-document-hibrido]], [[index]]
 - Context: Frontend recebeu implementação dos tipos (DesignDocument, DesignTokens, DesignNode) e o componente React de preview seguro. Marca a conclusão do Code Preview (Fase 1 parcial) do lado cliente, garantindo renderização sem execução livre de JS/CSS/HTML.
 
+## [2026-05-15 18:00] [FEAT] Camada de compatibilidade do Editor/Galeria para DesignDocument (Bot 03).
+- Files affected: [[bot-03-compat-editor-auditoria-designdocument]], [[design-document-hibrido]], [[index]], [[overview]]
+- Context: O Bot 03 implementou a camada de compatibilidade para o DesignDocument híbrido. Adicionou `extractEditablePages` e `extractPreviewSource` em `src/lib/designContent.ts`, atualizou as páginas correspondentes no frontend e criou testes de fixture contra falsos positivos. Status atualizado para concluído.
+

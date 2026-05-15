@@ -46,7 +46,8 @@
 		{"id":"node_20260515_07","type":"text","text":"## 2026-05-15\n**DesignDocument integrado à timeline**\n\n- Opção 1 escolhida\n- Preview por código primeiro\n- Backlog P0 dos 3 bots\n- Timeline/overview/index atualizados","x":5520,"y":-80,"width":500,"height":280,"color":"6"},
 		{"id":"node_20260515_08","type":"file","file":"wiki/workflows/designer/designer-timeline-execucao.md","x":8660,"y":380,"width":320,"height":1400,"color":"6"},
 		{"id":"node_20260515_09","type":"text","text":"## 2026-05-15\n**DesignDocument Renderer**\n\n- Tipos base + DesignTokens\n- Preview React sem HTML/JS livre\n- Isolado do CanvasEditor\n- Fase 1 (Code Preview) concluída no cliente","x":6080,"y":-80,"width":500,"height":280,"color":"4"},
-		{"id":"node_20260515_10","type":"file","file":"wiki/features/designer/design-document-renderer.md","x":9020,"y":380,"width":320,"height":1400,"color":"4"}
+		{"id":"node_20260515_10","type":"file","file":"wiki/features/designer/design-document-renderer.md","x":9020,"y":380,"width":320,"height":1400,"color":"4"},
+		{"id":"node_20260515_11","type":"text","text":"## 2026-05-15\n**Bot 03 (Compatibilidade) concluído**\n\n- extractEditablePages e extractPreviewSource\n- Editor, Galeria e posts atualizados\n- Testes de fixture (falsos positivos)\n- Status atualizado para concluído","x":6640,"y":-80,"width":500,"height":280,"color":"1"}
 	],
 	"edges":[
 		{"id":"etl_1","fromNode":"e_init","fromSide":"right","toNode":"e_ingest","toSide":"left"},
@@ -107,6 +108,8 @@
 		{"id":"edesigndocument_timeline","fromNode":"node_20260515_07","fromSide":"bottom","toNode":"node_20260515_08","toSide":"top","color":"6"},
 		{"id":"edesigndocument_timeline_doc","fromNode":"node_20260515_07","fromSide":"bottom","toNode":"node_20260515_02","toSide":"top","color":"6"},
 		{"id":"etl_14","fromNode":"node_20260515_07","fromSide":"right","toNode":"node_20260515_09","toSide":"left","color":"6"},
-		{"id":"edesigndoc_render_feat","fromNode":"node_20260515_09","fromSide":"bottom","toNode":"node_20260515_10","toSide":"top","color":"4"}
+		{"id":"edesigndoc_render_feat","fromNode":"node_20260515_09","fromSide":"bottom","toNode":"node_20260515_10","toSide":"top","color":"4"},
+		{"id":"etl_15","fromNode":"node_20260515_09","fromSide":"right","toNode":"node_20260515_11","toSide":"left","color":"1"},
+		{"id":"ebot03_feat_doc","fromNode":"node_20260515_11","fromSide":"bottom","toNode":"node_20260515_06","toSide":"top","color":"1"}
 	]
 }
