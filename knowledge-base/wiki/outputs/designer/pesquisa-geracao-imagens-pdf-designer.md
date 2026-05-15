@@ -1,7 +1,16 @@
 ---
 title: Pesquisa — Geração de Imagens e PDF no Designer
 type: output
-tags: [designer, image-generation, pdf, gemini, fal.ai, flux, playwright, jspdf, research]
+tags:
+  - "designer"
+  - "image-generation"
+  - "pdf"
+  - "gemini"
+  - "fal.ai"
+  - "flux"
+  - "playwright"
+  - "jspdf"
+  - "research"
 sources: []
 created: 2026-04-24
 updated: 2026-04-24
@@ -17,7 +26,7 @@ Pesquisa de opções e recomendações para conectar a tool "Imagem" (stub) do D
 
 ## Contexto
 
-O [Agente Designer](../features/agente-designer.md) tem duas ferramentas stub na Fábrica:
+O [[agente-designer]] tem duas ferramentas stub na Fábrica:
 
 | Tool | Status |
 |---|---|
@@ -206,9 +215,9 @@ Isso requer uma rota Next.js dedicada de "render-only" (sem sidebar, sem header)
 
 ## Relacionados
 
-- [Agente Designer](../features/agente-designer.md) — feature alvo desta pesquisa
-- [Arquitetura Backend](../architecture/designer-backend.md) — onde os novos endpoints vivem
-- [Arquitetura Frontend](../architecture/designer-frontend.md) — CanvasEditor e Fábrica
+- [[agente-designer]] — feature alvo desta pesquisa
+- [[designer-backend]] — onde os novos endpoints vivem
+- [[designer-frontend]] — CanvasEditor e Fábrica
 
 ---
 

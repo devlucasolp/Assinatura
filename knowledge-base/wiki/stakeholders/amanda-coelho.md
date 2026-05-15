@@ -1,8 +1,19 @@
 ---
 title: Amanda Coelho — Fundadora da Assinatura
 type: stakeholder
-tags: [amanda, fundadora, ceo, assinatura, marca-propria, beleza, podcast]
-sources: [Diagnostico_Assinatura.docx, https://www.linkedin.com/in/amandamatoscoelho/, https://www.instagram.com/amandacoelhoofficial/, https://assinaturamarcapropria.com.br/]
+tags:
+  - "amanda"
+  - "fundadora"
+  - "ceo"
+  - "assinatura"
+  - "marca-propria"
+  - "beleza"
+  - "podcast"
+sources:
+  - "Diagnostico_Assinatura.docx"
+  - "https://www.linkedin.com/in/amandamatoscoelho/"
+  - "https://www.instagram.com/amandacoelhoofficial/"
+  - "https://assinaturamarcapropria.com.br/"
 created: 2026-04-22
 updated: 2026-04-22
 ---
@@ -43,7 +54,7 @@ Amanda Coelho é a fundadora e dona da Assinatura Marca Própria. Com 16 anos de
 
 ## Relacionados
 
-- [Assinatura Marca Própria](assinatura-marca-propria.md) — a empresa que fundou
-- [Gabi](gabi.md) — gestora dos novos projetos (funis de Amanda)
-- [Marcelle](marcelle.md) — gestora do projeto principal
-- [Escopo do Projeto](../workflows/escopo-projeto-assinatura.md) — contrato de automação
+- [[assinatura-marca-propria]] — a empresa que fundou
+- [[gabi]] — gestora dos novos projetos (funis de Amanda)
+- [[marcelle]] — gestora do projeto principal
+- [[escopo-projeto-assinatura]] — contrato de automação

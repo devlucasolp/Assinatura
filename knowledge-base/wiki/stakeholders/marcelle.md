@@ -1,8 +1,16 @@
 ---
 title: Marcelle — Gestora do Projeto Principal
 type: stakeholder
-tags: [marcelle, gestora, projetos, asana, whatsapp, operações, automação]
-sources: [Diagnostico_Assinatura.docx]
+tags:
+  - "marcelle"
+  - "gestora"
+  - "projetos"
+  - "asana"
+  - "whatsapp"
+  - "operações"
+  - "automação"
+sources:
+  - "Diagnostico_Assinatura.docx"
 created: 2026-04-22
 updated: 2026-04-22
 ---
@@ -63,7 +71,7 @@ Agente Marcelle — inicia usando a mesma infraestrutura (Evolution API + EasyPa
 
 ## Relacionados
 
-- [Automação de Notificação (Marcelle)](../features/automacao-notificacao-marcelle.md) — produto sendo desenvolvido para ela
-- [Assinatura Marca Própria](assinatura-marca-propria.md) — empresa onde atua
-- [Gabi](gabi.md) — infraestrutura compartilhada entre os dois projetos
-- [Infraestrutura Técnica](../integrations/infraestrutura-tecnica.md) — Asana API + WhatsApp
+- [[automacao-notificacao-marcelle]] — produto sendo desenvolvido para ela
+- [[assinatura-marca-propria]] — empresa onde atua
+- [[gabi]] — infraestrutura compartilhada entre os dois projetos
+- [[infraestrutura-tecnica]] — Asana API + WhatsApp

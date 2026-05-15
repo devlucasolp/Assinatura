@@ -1,10 +1,29 @@
 ---
 title: Bot Gabi — Secretária A.I. (implementação)
 type: feature
-tags: [bot, gabi, whatsapp, fastapi, python, asana, gemini, openai, redis, postgresql, evolution-api, ata, auto-reply, fernanda]
-sources: [Bot_Gabi/Assinatura/main.py, Bot_Gabi/Assinatura/routes/webhook.py, Bot_Gabi/Assinatura/bot/handlers/, Bot_Gabi/Assinatura/system/handlers/meeting_notify.py, Bot_Gabi/Assinatura/core/config.py]
+tags:
+  - "bot"
+  - "gabi"
+  - "whatsapp"
+  - "fastapi"
+  - "python"
+  - "asana"
+  - "gemini"
+  - "openai"
+  - "redis"
+  - "postgresql"
+  - "evolution-api"
+  - "ata"
+  - "auto-reply"
+  - "fernanda"
+sources:
+  - "Bot_Gabi/Assinatura/main.py"
+  - "Bot_Gabi/Assinatura/routes/webhook.py"
+  - "Bot_Gabi/Assinatura/bot/handlers/"
+  - "Bot_Gabi/Assinatura/system/handlers/meeting_notify.py"
+  - "Bot_Gabi/Assinatura/core/config.py"
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-05-13
 ---
 
 # Bot Gabi — Secretária A.I. (implementação)
@@ -50,18 +69,18 @@ Roteamento (em ordem de prioridade):
 
 ### Handlers Implementados
 
-| Handler | Arquivo | Trigger | O que faz |
-|---|---|---|---|
-| Auto-reply | `system/handlers/meeting_notify.py` | Status Redis = `meeting` ou `event` | Envia msg automática; não repete para o mesmo número na janela |
-| Ata de reunião | `bot/handlers/meeting_minutes.py` | `/ata`, `processar ata`, `subir ata` | Gemini estrutura → Asana (seção Reuniões Mensais) → PostgreSQL → confirma com link |
-| Criar tarefa | `bot/handlers/asana_task.py` | Keywords + LLM intent `asana_task` | Gemini extrai nome/prazo/projeto → cria no Asana → salva last_task no Redis |
-| Atualizar tarefa | `bot/handlers/asana_task.py` | Keywords + LLM intent `asana_update` | Gemini extrai nome + mudança → busca task → atualiza |
-| Deletar tarefa | `bot/handlers/asana_task.py` | Keywords + LLM intent `asana_delete` | Busca task → deleta |
-| Concluir tarefa | `bot/handlers/asana_task.py` | Keywords + LLM intent `asana_complete` | Busca task → marca concluída |
-| Buscar tarefa | `bot/handlers/asana_query.py` | Keywords + LLM intent `asana_search` | Busca tarefas por nome/filtro |
-| Link da tarefa | `webhook.py` | LLM intent `link_request` | Retorna link da última task criada (Redis) |
-| Mídia | `bot/handlers/media.py` | `audioMessage`, `pttMessage`, `imageMessage` | Gemini transcreve/descreve → enfileira texto no debounce |
-| Chat geral | `bot/llm/chatgpt.py` | Fallback (nenhum intent específico) | GPT-4o com histórico dos últimos 6 turns (PostgreSQL) |
+| Handler          | Arquivo                             | Trigger                                      | O que faz                                                                          |
+| ---------------- | ----------------------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Auto-reply       | `system/handlers/meeting_notify.py` | Status Redis = `meeting` ou `event`          | Envia msg automática; não repete para o mesmo número na janela                     |
+| Ata de reunião   | `bot/handlers/meeting_minutes.py`   | `/ata`, `processar ata`, `subir ata`         | Gemini estrutura → Asana (seção Reuniões Mensais) → PostgreSQL → confirma com link |
+| Criar tarefa     | `bot/handlers/asana_task.py`        | Keywords + LLM intent `asana_task`           | Gemini extrai nome/prazo/projeto → cria no Asana → salva last_task no Redis        |
+| Atualizar tarefa | `bot/handlers/asana_task.py`        | Keywords + LLM intent `asana_update`         | Gemini extrai nome + mudança → busca task → atualiza                               |
+| Deletar tarefa   | `bot/handlers/asana_task.py`        | Keywords + LLM intent `asana_delete`         | Busca task → deleta                                                                |
+| Concluir tarefa  | `bot/handlers/asana_task.py`        | Keywords + LLM intent `asana_complete`       | Busca task → marca concluída                                                       |
+| Buscar tarefa    | `bot/handlers/asana_query.py`       | Keywords + LLM intent `asana_search`         | Busca tarefas por nome/filtro                                                      |
+| Link da tarefa   | `webhook.py`                        | LLM intent `link_request`                    | Retorna link da última task criada (Redis)                                         |
+| Mídia            | `bot/handlers/media.py`             | `audioMessage`, `pttMessage`, `imageMessage` | Gemini transcreve/descreve → enfileira texto no debounce                           |
+| Chat geral       | `bot/llm/chatgpt.py`                | Fallback (nenhum intent específico)          | GPT-4o com histórico dos últimos 6 turns (PostgreSQL)                              |
 
 ### Status dos MVPs (referência: 22/04/2026)
 
@@ -69,10 +88,10 @@ Roteamento (em ordem de prioridade):
 |---|---|---|
 | MVP 1 — Mensagens Automáticas | Auto-reply no WhatsApp durante ausências | ✅ Implementado (`meeting_notify.py`) |
 | MVP 2 — Atas de Reunião | Pipeline Gemini → ChatGPT → Asana | ✅ Implementado (`meeting_minutes.py` + Gemini → Asana) |
-| MVP 3 — Gerador de Imagens | Agente de imagens em testes | ⏳ Não iniciado |
-| MVP 4 — Lançamento | Validação final + gerador de imagens | ⏳ Não iniciado |
+| MVP 3 — Gerador de Imagens | Agente de imagens em testes | ✅ Adiantado — partindo para testes junto ao Designer |
+| MVP 4 — Lançamento | Validação final + gerador de imagens | 🔄 Parcialmente adiantado — depende de bateria de testes e Drive |
 
-> **O bot está adiantado**: MVP 1 e 2 já estão implementados (commits de 09–11/04). A mídia (áudio/imagem) é bônus não previsto no escopo original.
+> **O bot está adiantado**: MVP 1 e 2 já estão implementados (commits de 09–11/04). Em 2026-05-13, só falta a integração com Google Drive como pendência operacional principal antes da bateria de testes. A mídia (áudio/imagem) é bônus não previsto no escopo original.
 
 ### Configuração (`.env`)
 
@@ -115,8 +134,8 @@ A base técnica deste bot (FastAPI + Evolution API + Redis + PostgreSQL + EasyPa
 
 ## Relacionados
 
-- [Secretária A.I. (Gabi) — escopo](secretaria-ai-gabi.md) — planejamento original (escopo, cronograma, financeiro)
-- [Automação Marcelle](automacao-notificacao-marcelle.md) — próximo bot; reaproveitará esta base
-- [Gabi — stakeholder](../stakeholders/gabi.md) — usuária do bot
-- [Infraestrutura Técnica](../integrations/infraestrutura-tecnica.md) — Evolution API, EasyPanel
-- [Agente Designer](agente-designer.md) — outro produto da Gabi (MVP 3–4)
+- [[secretaria-ai-gabi]] — planejamento original (escopo, cronograma, financeiro)
+- [[automacao-notificacao-marcelle]] — próximo bot; reaproveitará esta base
+- [[gabi]] — usuária do bot
+- [[infraestrutura-tecnica]] — Evolution API, EasyPanel
+- [[agente-designer]] — outro produto da Gabi (MVP 3–4)

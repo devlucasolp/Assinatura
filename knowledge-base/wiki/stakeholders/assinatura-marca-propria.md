@@ -1,8 +1,19 @@
 ---
 title: Assinatura Marca Própria — A Empresa
 type: stakeholder
-tags: [assinatura, empresa, consultoria, beleza, marca-propria, belo-horizonte, cnpj]
-sources: [Diagnostico_Assinatura.docx, https://assinaturamarcapropria.com.br/, https://www.assinaturaconsultoria.com.br/, https://cnpj.biz/33825369000192]
+tags:
+  - "assinatura"
+  - "empresa"
+  - "consultoria"
+  - "beleza"
+  - "marca-propria"
+  - "belo-horizonte"
+  - "cnpj"
+sources:
+  - "Diagnostico_Assinatura.docx"
+  - "https://assinaturamarcapropria.com.br/"
+  - "https://www.assinaturaconsultoria.com.br/"
+  - "https://cnpj.biz/33825369000192"
 created: 2026-04-22
 updated: 2026-04-22
 ---
@@ -46,13 +57,13 @@ Consultoria especializada em desenvolvimento de marcas próprias no setor de cos
 
 | Pessoa | Papel |
 |---|---|
-| [Amanda Coelho](amanda-coelho.md) | Fundadora / CEO — origina estratégia e funis |
-| [Gabi](gabi.md) | Gestora de novos projetos (palestras, expansão, funis da Amanda) |
-| [Marcelle](marcelle.md) | Gestora do projeto principal — operações |
+| [[amanda-coelho]] | Fundadora / CEO — origina estratégia e funis |
+| [[gabi]] | Gestora de novos projetos (palestras, expansão, funis da Amanda) |
+| [[marcelle]] | Gestora do projeto principal — operações |
 
 ## Relacionados
 
-- [Amanda Coelho](amanda-coelho.md) — fundadora
-- [Gabi](gabi.md) — gestora de novos projetos
-- [Marcelle](marcelle.md) — gestora de operações
-- [Escopo do Projeto](../workflows/escopo-projeto-assinatura.md) — contrato Assinatura × Lucas
+- [[amanda-coelho]] — fundadora
+- [[gabi]] — gestora de novos projetos
+- [[marcelle]] — gestora de operações
+- [[escopo-projeto-assinatura]] — contrato Assinatura × Lucas

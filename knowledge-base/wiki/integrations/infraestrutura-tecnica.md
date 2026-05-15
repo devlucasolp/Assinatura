@@ -1,8 +1,17 @@
 ---
 title: Infraestrutura Técnica Atual
 type: integration
-tags: [asana, whatsapp, evolution-api, easypanel, gemini, chatgpt, agente-designer, infraestrutura]
-sources: [Diagnostico_Assinatura.docx]
+tags:
+  - "asana"
+  - "whatsapp"
+  - "evolution-api"
+  - "easypanel"
+  - "gemini"
+  - "chatgpt"
+  - "agente-designer"
+  - "infraestrutura"
+sources:
+  - "Diagnostico_Assinatura.docx"
 created: 2026-04-22
 updated: 2026-04-22
 ---
@@ -15,14 +24,14 @@ Estado da infraestrutura técnica levantada durante o diagnóstico (abril 2026).
 
 ## Detalhes
 
-### Status por Componente (referência: 15/04/2026)
+### Status por Componente (referência: 15/04/2026 — verificar atualizações)
 
 | Componente | Status | Observação |
 |---|---|---|
 | Asana API | ✅ Concluído | Integração ativa — criação de tasks via API funcionando |
 | WhatsApp + Evolution API | ✅ Concluído | Integrado e operacional via EasyPanel |
-| Agente Designer | 🔄 Em andamento | Base criada e funcional, aguarda integração completa |
-| Agente Marcelle | ⏳ Pendente | Iniciará após conclusão da Secretária A.I. |
+| Agente Designer | 🔄 Em andamento | Base funcional; Sprint 0 concluído em 25/04; gaps residuais em revisão |
+| Automação Marcelle | ⚠️ Verificar | Prazo 21/04/2026 vencido — status de entrega não confirmado nesta KB |
 
 ### Componentes e Papéis
 
@@ -37,9 +46,11 @@ Estado da infraestrutura técnica levantada durante o diagnóstico (abril 2026).
 
 ### Pipeline de Atas (dois caminhos)
 
+> ⚠️ CONFLITO RESOLVIDO: documentos de escopo descreviam "Gemini → ChatGPT → Asana". O código real (`bot-gabi.md`) confirma que ChatGPT **não participa** do pipeline de atas — Gemini estrutura e publica direto no Asana. ChatGPT é usado apenas para chat geral e classificação de intenção.
+
 ```
-Caminho Automático:
-  Reunião → Gemini (transcrição/geração) → ChatGPT (lapidação) → Asana (task)
+Caminho Automático (implementação real):
+  Reunião → Gemini (estrutura a ata) → Asana (seção Reuniões Mensais) → PostgreSQL
 
 Caminho Semi-manual:
   Reunião → Gabi puxa do Gemini → envia por WhatsApp → automação → Asana
@@ -58,6 +69,6 @@ Caminho Semi-manual:
 
 ## Relacionados
 
-- [Secretária A.I. (Gabi)](../features/secretaria-ai-gabi.md) — consumidora principal desta infraestrutura
-- [Automação Marcelle](../features/automacao-notificacao-marcelle.md) — reutilizará após conclusão da Gabi
-- [Escopo do Projeto Assinatura](../workflows/escopo-projeto-assinatura.md) — contexto geral do projeto
+- [[secretaria-ai-gabi]] — consumidora principal desta infraestrutura
+- [[automacao-notificacao-marcelle]] — reutilizará após conclusão da Gabi
+- [[escopo-projeto-assinatura]] — contexto geral do projeto

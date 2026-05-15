@@ -1,8 +1,17 @@
 ---
 title: Gabi — Gestora de Novos Projetos
 type: stakeholder
-tags: [gabi, gabriela, gestora, whatsapp, asana, secretaria-ai, expansão, palestras]
-sources: [Diagnostico_Assinatura.docx]
+tags:
+  - "gabi"
+  - "gabriela"
+  - "gestora"
+  - "whatsapp"
+  - "asana"
+  - "secretaria-ai"
+  - "expansão"
+  - "palestras"
+sources:
+  - "Diagnostico_Assinatura.docx"
 created: 2026-04-22
 updated: 2026-04-22
 ---
@@ -61,7 +70,7 @@ Amanda cria funil / nova frente
 
 ## Relacionados
 
-- [Secretária A.I. (Gabi)](../features/secretaria-ai-gabi.md) — produto sendo desenvolvido para ela
-- [Amanda Coelho](amanda-coelho.md) — origem dos funis que Gabi gere
-- [Assinatura Marca Própria](assinatura-marca-propria.md) — empresa onde atua
-- [Infraestrutura Técnica](../integrations/infraestrutura-tecnica.md) — WhatsApp + Asana API
+- [[secretaria-ai-gabi]] — produto sendo desenvolvido para ela
+- [[amanda-coelho]] — origem dos funis que Gabi gere
+- [[assinatura-marca-propria]] — empresa onde atua
+- [[infraestrutura-tecnica]] — WhatsApp + Asana API

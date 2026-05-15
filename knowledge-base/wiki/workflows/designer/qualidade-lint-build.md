@@ -1,8 +1,16 @@
 ---
 title: Qualidade — Lint e Build (Designer)
 type: workflow
-tags: [qualidade, eslint, lint, build, next.js, express]
-sources: [designer/frontend/eslint.config.mjs, designer/backend/eslint.config.mjs]
+tags:
+  - "qualidade"
+  - "eslint"
+  - "lint"
+  - "build"
+  - "next.js"
+  - "express"
+sources:
+  - "designer/frontend/eslint.config.mjs"
+  - "designer/backend/eslint.config.mjs"
 created: 2026-04-27
 updated: 2026-04-27
 ---
@@ -66,6 +74,6 @@ Padronização de qualidade para o Designer (frontend + backend): lint e build p
 
 ## Relacionados
 
-- [Arquitetura Frontend — Designer](../architecture/designer-frontend.md) — contexto de páginas e componentes
-- [Arquitetura Backend — Designer](../architecture/designer-backend.md) — contexto de rotas e tipagem Prisma
-- [Agente Designer](../features/agente-designer.md) — feature impactada por estabilidade de build/lint
+- [[designer-frontend]] — contexto de páginas e componentes
+- [[designer-backend]] — contexto de rotas e tipagem Prisma
+- [[agente-designer]] — feature impactada por estabilidade de build/lint

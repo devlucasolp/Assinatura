@@ -1,10 +1,12 @@
 ---
 title: Overview — Síntese Dinâmica
 type: architecture
-tags: [overview, synthesis]
+tags:
+  - "overview"
+  - "synthesis"
 sources: []
 created: 2026-04-22
-updated: 2026-04-27
+updated: 2026-05-13
 ---
 
 # 🗺️ Overview — Síntese Dinâmica do Projeto
@@ -14,37 +16,47 @@ updated: 2026-04-27
 
 ## Estado Atual
 
-Primeira consolidação realizada em 2026-04-22. Wiki populada com diagnóstico do projeto (Diagnostico_Assinatura.docx + CONTEXTO.md). O repositório git (`designer/`) contém o Agente Designer em initial commit de 19/04/2026. A Automação Marcelle não tem commits — verificar status.
+**Referência: 2026-05-13 — execução adiantada frente ao cronograma contratual**
 
-Em 2026-04-27, foi feita uma passada de qualidade: lint e build do Designer (frontend + backend) estão passando de forma limpa, reduzindo risco de regressões e ruído no CI local.
+- **Bot Gabi (Secretaria A.I.) — Mês 2/3:** MVP 1 e MVP 2 já implementados; bot partindo para testes. Principal pendência operacional informada: integração com Google Drive. Está adiantado em relação ao cronograma original, porque o Mês 3 só começaria em 20/05/2026.
+- **Agente Designer — Mês 2/3:** CanvasEditor próprio reativado pela ADR-006; Fábrica v2, Galeria, pipeline IA, multi-select, preview de animação e validações lint/build estão funcionais. Está quase finalizado para a fase atual e indo para testes com Gabi. Pendências reais: validação de fluxo ponta-a-ponta, upload/R2 com erro claro, Drive no ecossistema Gabi e limpeza pós-ADR-006. A próxima direção técnica proposta é [[design-document-hibrido]]: Gemini pesado com contexto ampliado gera um DesignDocument renderizado por React/CSS seguro e depois compilado para Layer[] compatível com o CanvasEditor. A Fase 1 (Code Preview) já foi concluída no frontend com o novo componente isolado `DesignDocumentRenderer`.
+- **Automação Marcelle — Mês 2:** Mês 1 ✅ entregue; fluxo evoluindo para teste operacional na semana de 18/05/2026. Está saindo de escopo indefinido para validação prática antecipada.
 
 ## Pilares Arquiteturais
 
 <!-- auto:pillars -->
-- [Arquitetura Backend](architecture/designer-backend.md) — Express + Prisma + PostgreSQL + Gemini (dual-key: chat vs design)
-- [Arquitetura Frontend](architecture/designer-frontend.md) — Next.js App Router, [marca] scoping, SSE streaming, CanvasEditor
+- [[designer-backend]] — Express + Prisma + PostgreSQL + Gemini; Canva permanece histórico/stand-by após ADR-006
+- [[designer-frontend]] — Next.js App Router, [marca] scoping, SSE streaming, CanvasEditor próprio reativado por ADR-006
+- [[design-document-hibrido]] — proposta técnica: Gemini pesado + contexto ampliado gera DesignDocument por código seguro antes da compilação para layers/editoração
 <!-- /auto:pillars -->
 
 ## Features em Produção
 
 <!-- auto:features -->
-- [Agente Designer](features/agente-designer.md) — App designer IA | git: `e809a0f` (19/04) | status: ✅ gaps principais resolvidos (auth, pdf, onboarding, refs)
-- [Fábrica v2](features/fabrica-v2.md) — Redesign procedural (Wizard) + Preview responsivo | status: ✅ Estável
-- [Galeria Gestão](features/galeria-gestao.md) — DND para pastas + Exclusão de artes | status: ✅ Estável
-- [Secretária A.I. (Gabi)](features/secretaria-ai-gabi.md) — Agente WhatsApp + atas + gerador de imagens | 4 meses | até 14/07/2026 | Mês 1 ✅ (21/04)
-- [Automação de Notificação (Marcelle)](features/automacao-notificacao-marcelle.md) — Visibilidade de projetos via WhatsApp + reports Asana | 1 mês | prazo 21/04/2026 ⚠️ verificar status
+- [[agente-designer]] — App designer IA | ADR-006: CanvasEditor próprio reativado | Fábrica, Galeria, pipeline IA e editor visual funcionais 🔄 validação com Gabi
+- [[fabrica-v2]] — Redesign procedural (Wizard) + Preview responsivo | status: ✅ Estável
+- [[galeria-gestao]] — DND para pastas + Exclusão de artes | status: ✅ Estável
+- [[secretaria-ai-gabi]] — Agente WhatsApp + atas + gerador de imagens | 4 meses | até 14/07/2026 | Mês 1 ✅ | Mês 2 ✅ | Mês 3 ✅ adiantado/testes
+- [[secretaria-ai-mes2]] — Semanas 5–8 | deadline 19/05/2026 | contexto histórico; status atual adiantado em 2026-05-13
+- [[automacao-notificacao-marcelle]] — 4 meses | até 21/07/2026 | Mês 1 ✅ | Mês 2 🔄 teste operacional semana 18/05/2026
 <!-- /auto:features -->
 
 ## Integrações Ativas
 
 <!-- auto:integrations -->
-- [Infraestrutura Técnica Atual](integrations/infraestrutura-tecnica.md) — Asana API ✅ · WhatsApp + Evolution API ✅ · EasyPanel ✅ · Agente Designer 🔄 · Agente Marcelle ⏳
+- [[infraestrutura-tecnica]] — Asana API ✅ · WhatsApp + Evolution API ✅ · EasyPanel ✅ · Agente Designer 🔄 · Agente Marcelle Mês 2 🔄 teste
+- [[stripe-webhook]] — Webhook ✅ · Facebook CAPI ⚠️ (credenciais pendentes) · TikTok CAPI ⚠️ (falha auth) · UTM ❌ (não implementado)
+- [[canva-connect-api]] — Histórico/stand-by pós-ADR-006; não é caminho principal do editor embarcado
 <!-- /auto:integrations -->
 
 ## Decisões Recentes
 
 <!-- auto:decisions -->
-_Nenhuma ADR ainda. Criar ADRs para: (1) Next.js + Express separados, (2) Gemini como LLM do Designer, (3) infraestrutura compartilhada Gabi → Marcelle._
+- [[adr-001-next-express-separados]] — Frontend e backend como processos distintos no Designer
+- [[adr-002-gemini-llm-designer]] — Gemini Flash em vez de GPT-4o para geração de layouts JSON
+- [[adr-003-infra-compartilhada]] — FastAPI + Evolution API + Redis + PostgreSQL reaproveitados
+- [[adr-005-canva-api-migração]] — decisão histórica superada pela ADR-006 para edição principal embarcada
+- [[adr-006-editor-visual-alternativas-canva]] — **ACEITA (2026-05-11)** CanvasEditor próprio reativado; Canva em stand-by
 <!-- /auto:decisions -->
 
 ## Dívida Técnica Conhecida

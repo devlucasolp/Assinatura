@@ -1,7 +1,11 @@
 ---
 title: Galeria — Gestão de Ativos e Pastas
 type: feature
-tags: [galeria, assets, drag-and-drop, management]
+tags:
+  - "galeria"
+  - "assets"
+  - "drag-and-drop"
+  - "management"
 status: stable
 created: 2026-04-27
 updated: 2026-04-27

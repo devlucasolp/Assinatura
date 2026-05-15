@@ -1,8 +1,16 @@
 ---
 title: Escopo do Projeto Assinatura
 type: workflow
-tags: [assinatura, escopo, contrato, diagnóstico, marcelle, gabi]
-sources: [Diagnostico_Assinatura.docx, CONTEXTO.md]
+tags:
+  - "assinatura"
+  - "escopo"
+  - "contrato"
+  - "diagnóstico"
+  - "marcelle"
+  - "gabi"
+sources:
+  - "Diagnostico_Assinatura.docx"
+  - "CONTEXTO.md"
 created: 2026-04-22
 updated: 2026-04-22
 ---
@@ -28,13 +36,13 @@ Contrato de prestação de serviços entre Lucas de Oliveira Lopes e Assinatura 
 
 ### Dois Produtos
 
-| Produto | Responsável | Prazo | Financeiro |
-|---|---|---|---|
-| Secretária A.I. | Gabriela (Gabi) | 4 meses | R$ 1.200/mês × 10 parcelas |
-| Automação de Projetos | Marcelle | 1 mês | R$ 1.000/mês × 10 parcelas |
+| Produto | Responsável | Prazo | Período | Financeiro |
+|---|---|---|---|---|
+| Secretária A.I. + Designer | Gabriela (Gabi) | 4 meses | 24/03–21/07/2026 | R$ 1.200/mês × 10 parcelas |
+| Automação de Projetos | Marcelle | 4 meses | 24/03–21/07/2026 | R$ 1.000/mês × 10 parcelas |
 
-- Detalhes Gabi → [features/secretaria-ai-gabi.md](../features/secretaria-ai-gabi.md)
-- Detalhes Marcelle → [features/automacao-notificacao-marcelle.md](../features/automacao-notificacao-marcelle.md)
+- Detalhes Gabi → [[secretaria-ai-gabi]]
+- Detalhes Marcelle → [[automacao-notificacao-marcelle]]
 
 ### Status do Diagnóstico por Frente
 
@@ -47,16 +55,16 @@ Contrato de prestação de serviços entre Lucas de Oliveira Lopes e Assinatura 
 
 ```
 Diagnóstico (abr/2026)
-  → Secretária A.I. — 4 meses (mar–jul/2026)
-      ↓ após conclusão
-  → Agente Marcelle — inicia usando infraestrutura já pronta
+  → Secretária A.I. (Gabi) — 4 meses em paralelo (24/03–21/07/2026)
+  → Automação Marcelle      — 4 meses em paralelo (24/03–21/07/2026)
+      ↓ ambas compartilham infraestrutura (Evolution API + EasyPanel + Postgres + Redis)
 ```
 
 ## Decisões Tomadas
 
-- **Sequenciamento:** Agente Marcelle inicia após conclusão da Secretária A.I. — foco e reuso de infraestrutura sem custo adicional.
+- **Execução em paralelo:** Gabi e Marcelle rodam simultaneamente nos mesmos 4 meses — infraestrutura compartilhada sem custo adicional para nenhuma das frentes.
 - **Dashboard unificado fora do escopo:** Marcelle mencionou querer "tudo em uma tela" — não está no escopo; formalizar exige UX dedicada e revisão de valor.
-- **Dois caminhos para atas (Gabi):** (1) Automático: Gemini → ChatGPT → Asana; (2) Semi-manual: Gabi puxa do Gemini, envia por WhatsApp → Asana.
+- **Pipeline de atas (Gabi):** Gemini estrutura diretamente → Asana (ChatGPT não está no fluxo de atas — ver `bot-gabi.md`).
 
 ## Learnings
 
@@ -66,6 +74,6 @@ Diagnóstico (abr/2026)
 
 ## Relacionados
 
-- [Secretária A.I. (Gabi)](../features/secretaria-ai-gabi.md) — produto 1
-- [Automação Marcelle](../features/automacao-notificacao-marcelle.md) — produto 2
-- [Infraestrutura Técnica](../integrations/infraestrutura-tecnica.md) — base técnica compartilhada
+- [[secretaria-ai-gabi]] — produto 1
+- [[automacao-notificacao-marcelle]] — produto 2
+- [[infraestrutura-tecnica]] — base técnica compartilhada

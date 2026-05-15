@@ -1,8 +1,24 @@
 ---
-title: Auditoria — UX, Lógica e Necessidades do Designer
+title: "Auditoria — UX, Lógica e Necessidades do Designer"
 type: output
-tags: [auditoria, ux, logica, designer, configuracao, referencias, auth, segurança, sprint0, gaps]
-sources: [designer/backend/src/routes/settings.ts, designer/backend/src/routes/ai.ts, designer/backend/src/middleware/auth.ts, designer/frontend/src/app/[marca]/editor/page.tsx, designer/frontend/src/app/[marca]/fabrica/page.tsx, designer/frontend/src/app/[marca]/configuracoes/referencias/page.tsx]
+tags:
+  - auditoria
+  - ux
+  - logica
+  - designer
+  - configuracao
+  - referencias
+  - auth
+  - segurança
+  - sprint0
+  - gaps
+sources:
+  - "designer/backend/src/routes/settings.ts"
+  - "designer/backend/src/routes/ai.ts"
+  - "designer/backend/src/middleware/auth.ts"
+  - "designer/frontend/src/app/[marca]/editor/page.tsx"
+  - "designer/frontend/src/app/[marca]/fabrica/page.tsx"
+  - "designer/frontend/src/app/[marca]/configuracoes/referencias/page.tsx"
 created: 2026-04-25
 updated: 2026-04-25
 ---
@@ -207,8 +223,8 @@ A galeria exibe todos os posts como thumbnails de layers. Posts de imagem (dataU
 
 ## Relacionados
 
-- [Agente Designer](../features/agente-designer.md) — estado atual das features
-- [Arquitetura Backend](../architecture/designer-backend.md) — rotas e middleware
-- [Arquitetura Frontend](../architecture/designer-frontend.md) — páginas e componentes
-- [Plano de Implementação](designer-plano-implementacao.md) — sprints e critérios de aceite
-- [Auditoria de Libs e Configs](auditoria-libs-configs.md) — L1/L2 resolvidos no Sprint 0
+- [[agente-designer]] — estado atual das features
+- [[designer-backend]] — rotas e middleware
+- [[designer-frontend]] — páginas e componentes
+- [[designer-plano-implementacao]] — sprints e critérios de aceite
+- [[auditoria-libs-configs]] — L1/L2 resolvidos no Sprint 0

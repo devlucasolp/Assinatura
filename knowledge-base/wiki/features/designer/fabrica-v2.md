@@ -1,7 +1,11 @@
 ---
 title: Fábrica v2 — Redesign Procedural
 type: feature
-tags: [fabrica, wizard, ai, design]
+tags:
+  - "fabrica"
+  - "wizard"
+  - "ai"
+  - "design"
 status: stable
 created: 2026-04-27
 updated: 2026-04-27

@@ -1,7 +1,16 @@
 ---
 title: Auditoria — Gerenciamento de Bibliotecas e Configurações
 type: output
-tags: [auditoria, libs, config, designer, bot-gabi, gemini, sdk, duplicação, refactor]
+tags:
+  - "auditoria"
+  - "libs"
+  - "config"
+  - "designer"
+  - "bot-gabi"
+  - "gemini"
+  - "sdk"
+  - "duplicação"
+  - "refactor"
 sources: []
 created: 2026-04-24
 updated: 2026-04-25
@@ -240,9 +249,9 @@ Prisma é o ORM declarado, mas não há garantia (sem ver o código) de que nenh
 
 ## Relacionados
 
-- [Plano de Implementação — MVP 3 e 4](designer-plano-implementacao.md) — sprints onde as correções se encaixam
-- [Auditoria Canvas — Jornada da Gabi](designer-auditoria-jornada.canvas) — contexto do produto
-- [Arquitetura Backend](../architecture/designer-backend.md) — origem dos problemas L1, L2, L3
-- [Arquitetura Frontend](../architecture/designer-frontend.md) — origem dos problemas L2, L5, L6, L7
-- [Bot Gabi — implementação](../features/bot-gabi.md) — origem do problema L4
-- [Pesquisa Geração de Imagens e PDF](pesquisa-geracao-imagens-pdf-designer.md) — contexto da migração SDK (L1)
+- [[designer-plano-implementacao]] — sprints onde as correções se encaixam
+- [[designer-auditoria-jornada]] — contexto do produto
+- [[designer-backend]] — origem dos problemas L1, L2, L3
+- [[designer-frontend]] — origem dos problemas L2, L5, L6, L7
+- [[bot-gabi]] — origem do problema L4
+- [[pesquisa-geracao-imagens-pdf-designer]] — contexto da migração SDK (L1)

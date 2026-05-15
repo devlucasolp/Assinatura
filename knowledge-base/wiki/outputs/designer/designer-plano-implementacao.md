@@ -1,7 +1,14 @@
 ---
 title: Plano de Implementação — Agente Designer (MVP 3 e 4)
 type: output
-tags: [designer, planejamento, mvp3, mvp4, implementação, roadmap, requisitos]
+tags:
+  - "designer"
+  - "planejamento"
+  - "mvp3"
+  - "mvp4"
+  - "implementação"
+  - "roadmap"
+  - "requisitos"
 sources: []
 created: 2026-04-24
 updated: 2026-04-25
@@ -11,7 +18,7 @@ updated: 2026-04-25
 
 ## Resumo
 
-Planejamento detalhado para fechar os gaps críticos do Agente Designer e entregar os MVPs 3 e 4 contratados com a Gabi. O ponto de partida é o diagnóstico da [Auditoria de Jornada](designer-auditoria-jornada.canvas). Prazo final: 14/07/2026.
+Planejamento detalhado para fechar os gaps críticos do Agente Designer e entregar os MVPs 3 e 4 contratados com a Gabi. O ponto de partida é o diagnóstico da [[designer-auditoria-jornada]]. Prazo final: 14/07/2026.
 
 ---
 
@@ -39,7 +46,7 @@ Planejamento detalhado para fechar os gaps críticos do Agente Designer e entreg
 
 ### Técnicas — Auditoria de Libs e Configs (adicionadas em 2026-04-24)
 
-Ver análise completa em [Auditoria de Libs e Configs](auditoria-libs-configs.md).
+Ver análise completa em [[auditoria-libs-configs]].
 
 | # | Item | Severidade | Sprint |
 |---|---|---|---|
@@ -166,12 +173,14 @@ Gabi na Fábrica
 ## Cronograma Visual
 
 ```
-Abril/2026      Maio/2026              Junho/2026              Julho/2026
-|               |                      |                       |
-|--- Sprint 0 --|--- Sprint 1 (MVP 3) --|--- Sprint 2 (MVP 4) --|
-24/04  →  19/05   20/05  →  16/06         17/06  →  14/07
-Urgências         Gerador Imagens          Qualidade + Launch
+Abril/2026         Maio/2026              Junho/2026              Julho/2026
+|                  |                      |                       |
+|-- Sprint 0 ✅ --|--- Sprint 1 (MVP 3) --|--- Sprint 2 (MVP 4) --|
+24/04 → 25/04       05/05  →  16/06         17/06  →  14/07
+Urgências           Gerador Imagens          Qualidade + Launch
 ```
+
+> ⚠️ **Cronograma atualizado:** Sprint 0 foi concluído em 25/04/2026 (não em 19/05 como planejado originalmente). Sprint 1 pode iniciar a partir de 05/05/2026.
 
 ---
 
@@ -199,9 +208,9 @@ Urgências         Gerador Imagens          Qualidade + Launch
 
 ## Relacionados
 
-- [Auditoria Canvas](designer-auditoria-jornada.canvas) — canvas visual de onde este plano deriva
-- [Pesquisa Geração de Imagens e PDF](pesquisa-geracao-imagens-pdf-designer.md) — opções técnicas detalhadas
-- [Agente Designer](../features/agente-designer.md) — estado atual do código
-- [Arquitetura Backend](../architecture/designer-backend.md) — onde os novos endpoints vivem
-- [Arquitetura Frontend](../architecture/designer-frontend.md) — CanvasEditor e Fábrica
-- [Secretária A.I. (Gabi) — escopo](../features/secretaria-ai-gabi.md) — cronograma contratual
+- [[designer-auditoria-jornada]] — canvas visual de onde este plano deriva
+- [[pesquisa-geracao-imagens-pdf-designer]] — opções técnicas detalhadas
+- [[agente-designer]] — estado atual do código
+- [[designer-backend]] — onde os novos endpoints vivem
+- [[designer-frontend]] — CanvasEditor e Fábrica
+- [[secretaria-ai-gabi]] — cronograma contratual
