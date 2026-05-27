@@ -47,5 +47,6 @@ O design não confia na IA para calcular z-index absoluto de forma cega, nem ren
 ## Relacionados
 
 - [[design-document-hibrido]]
+- [[design-document-compiler]]
 - [[bot-02-frontend-renderer-designdocument]]
 - [[designer-frontend]]

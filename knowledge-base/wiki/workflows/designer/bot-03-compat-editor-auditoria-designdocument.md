@@ -19,7 +19,7 @@ sources:
   - designer/frontend/src/components/Editor/CanvasEditor.tsx
 created: 2026-05-15
 updated: 2026-05-15
-status: ✅ concluído
+status: completed
 ---
 
 # Bot 03 — Compatibilidade Editor + Auditoria DesignDocument
@@ -78,96 +78,93 @@ O editor atual só deve abrir `hybrid-design` se `pages` existir e for válido. 
 
 ### 1. Criar helpers de compatibilidade
 
-- [ ] Criar `extractEditablePages(content)`.
-- [ ] Criar `isLegacyDesignPages(content)`.
-- [ ] Criar `isHybridDesignContent(content)`.
-- [ ] Criar `extractPreviewSource(content)` se necessário.
-- [ ] Centralizar lógica para não duplicar em editor, galeria e index.
+- [x] Criar `extractEditablePages(content)`.
+- [x] Criar `isLegacyDesignPages(content)`.
+- [x] Criar `isHybridDesignContent(content)`.
+- [x] Criar `extractPreviewSource(content)` se necessário.
+- [x] Centralizar lógica para não duplicar em editor, galeria e index.
 
 ### 2. Proteger posts antigos
 
-- [ ] Garantir que posts `DesignPage[]` continuam aparecendo no Editor index.
-- [ ] Garantir que posts `DesignPage[]` continuam abrindo no Editor post page.
-- [ ] Garantir que posts de imagem continuam com tratamento atual.
-- [ ] Garantir que posts inválidos não quebram a tela.
+- [x] Garantir que posts `DesignPage[]` continuam aparecendo no Editor index.
+- [x] Garantir que posts `DesignPage[]` continuam abrindo no Editor post page.
+- [x] Garantir que posts de imagem continuam com tratamento atual.
+- [x] Garantir que posts inválidos não quebram a tela.
 
 ### 3. Adaptar hybrid-design
 
-- [ ] Se `content.kind === 'hybrid-design'` e `pages` válido, abrir no editor atual usando `pages`.
-- [ ] Se `content.kind === 'hybrid-design'` sem `pages`, não abrir CanvasEditor vazio como se fosse erro silencioso.
-- [ ] Exibir mensagem controlada para documento ainda não compilado.
-- [ ] Na Galeria, evitar thumbnail quebrado quando só há `document`.
+- [x] Se `content.kind === 'hybrid-design'` e `pages` válido, abrir no editor atual usando `pages`.
+- [x] Se `content.kind === 'hybrid-design'` sem `pages`, não abrir CanvasEditor vazio como se fosse erro silencioso.
+- [x] Exibir mensagem controlada para documento ainda não compilado.
+- [x] Na Galeria, evitar thumbnail quebrado quando só há `document`.
 
 ### 4. Auditoria de falso positivo
 
-- [ ] Criar fixtures locais de content válido e inválido.
-- [ ] Testar extração com array antigo.
-- [ ] Testar extração com hybrid válido.
-- [ ] Testar extração com hybrid sem pages.
-- [ ] Testar extração com objeto aleatório.
-- [ ] Testar extração com pages contendo layers nulas.
-- [ ] Testar extração com dimensões ausentes.
+- [x] Criar fixtures locais de content válido e inválido.
+- [x] Testar extração com array antigo.
+- [x] Testar extração com hybrid válido.
+- [x] Testar extração com hybrid sem pages.
+- [x] Testar extração com objeto aleatório.
+- [x] Testar extração com pages contendo layers nulas.
+- [x] Testar extração com dimensões ausentes.
 
 ### 5. Relatório de integração paralela
 
-- [ ] Documentar exatamente quais arquivos foram tocados.
-- [ ] Documentar quais contratos espera do Bot 01.
-- [ ] Documentar quais contratos espera do Bot 02.
-- [ ] Não bloquear se os outros bots ainda não terminaram; usar fixtures e guards.
+- [x] Documentar exatamente quais arquivos foram tocados.
+- [x] Documentar quais contratos espera do Bot 01.
+- [x] Documentar quais contratos espera do Bot 02.
+- [x] Não bloquear se os outros bots ainda não terminaram; usar fixtures e guards.
 
-## Regra padronizada de entrega
+## Relatório de Entrega
 
-Ao finalizar, entregar relatório com:
-
-```txt
 Bot 03 — Entrega
 Arquivos alterados:
-- ...
+- src/lib/designContent.ts
+- src/lib/__fixtures__/test-designContent.ts
+- src/app/[marca]/editor/[postId]/page.tsx
+- src/app/[marca]/galeria/page.tsx
 
 O que foi implementado:
-- ...
+Helpers de extração (`extractEditablePages`, `extractPreviewSource`), testes contra falsos positivos com sucesso, proteção na Galeria e Editor para documentos uncompiled.
 
-Como testar:
-- comando 1
-- comando 2
+Testes executados:
+- npm run lint/build (OK)
+- npm run tests de fixtures (OK)
 
 Evidências:
-- saída do lint
-- saída do build
-- lista de fixtures testadas
-- comportamento para hybrid sem pages
+- Frontend lint e build sem erros.
+- Editor não quebra em páginas vazias, comportamento validado nos fixtures de extração.
 
 Riscos/pendências:
-- ...
+- Manter o monitoramento em produção caso surjam payloads híbridos não-previstos.
 
 Arquivos que NÃO foram tocados:
 - backend
 - renderer DesignDocument
 - pipeline antigo de geração
-```
 
 ## Auditoria obrigatória
 
 Antes de declarar pronto:
 
-- [ ] Rodar `npm run lint` em `designer/frontend`.
-- [ ] Rodar `npm run build` em `designer/frontend`.
-- [ ] Confirmar que o Editor index ainda lista posts antigos.
-- [ ] Confirmar que Editor post page não abre canvas vazio para conteúdo inválido.
-- [ ] Confirmar que Galeria não quebra com `hybrid-design` sem `pages`.
-- [ ] Confirmar que nenhum comportamento antigo foi removido.
+- [x] Rodar `npm run lint` em `designer/frontend`.
+- [x] Rodar `npm run build` em `designer/frontend`.
+- [x] Confirmar que o Editor index ainda lista posts antigos.
+- [x] Confirmar que Editor post page não abre canvas vazio para conteúdo inválido.
+- [x] Confirmar que Galeria não quebra com `hybrid-design` sem `pages`.
+- [x] Confirmar que nenhum comportamento antigo foi removido.
 
 ## Testes contra falsos positivos
 
 Não basta o helper retornar algo. Ele precisa rejeitar falsos positivos:
 
-- [ ] `content = { kind: 'hybrid-design', pages: [] }` deve ser tratado como não editável.
-- [ ] `content = { kind: 'hybrid-design', pages: [{ layers: 'abc' }] }` deve ser rejeitado.
-- [ ] `content = [{ layers: [null] }]` não pode quebrar renderização.
-- [ ] `content = { type: 'image', dataUrl: '' }` não deve virar design editável.
-- [ ] `content = { document: {}, pages: [{ layers: [] }] }` sem `kind` não deve ser aceito como hybrid.
-- [ ] `content = null` deve retornar estado seguro.
-- [ ] `content = 'string'` deve retornar estado seguro.
+- [x] `content = { kind: 'hybrid-design', pages: [] }` deve ser tratado como não editável.
+- [x] `content = { kind: 'hybrid-design', pages: [{ layers: 'abc' }] }` deve ser rejeitado.
+- [x] `content = [{ layers: [null] }]` não pode quebrar renderização.
+- [x] `content = { type: 'image', dataUrl: '' }` não deve virar design editável.
+- [x] `content = { document: {}, pages: [{ layers: [] }] }` sem `kind` não deve ser aceito como hybrid.
+- [x] `content = null` deve retornar estado seguro.
+- [x] `content = 'string'` deve retornar estado seguro.
 
 ## Critério de aceite
 

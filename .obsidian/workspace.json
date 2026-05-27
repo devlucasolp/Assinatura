@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "b2c040f8c7e9e080",
+        "id": "36a692f41bcdd781",
         "type": "tabs",
         "children": [
           {
-            "id": "4746ec06f4813b1b",
+            "id": "0f328e6ee4516ab6",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Visualização em gráfico"
+              "type": "markdown",
+              "state": {
+                "file": "knowledge-base/wiki/overview.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "overview"
             }
           }
         ]
@@ -29,6 +33,7 @@
       {
         "id": "e9faaf17182eda4c",
         "type": "tabs",
+        "dimension": 32.497589199614275,
         "children": [
           {
             "id": "0230f97c90d13af4",
@@ -71,10 +76,34 @@
             }
           }
         ]
+      },
+      {
+        "id": "4da12f47067cbae4",
+        "type": "tabs",
+        "dimension": 67.50241080038573,
+        "children": [
+          {
+            "id": "4746ec06f4813b1b",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "knowledge-base/wiki/tracking.canvas",
+                "viewState": {
+                  "x": -289.5315749798584,
+                  "y": 530.3680984137854,
+                  "zoom": -1.3891326911377577
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "tracking"
+            }
+          }
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 563.5
   },
   "right": {
     "id": "2117f90110e51550",
@@ -176,6 +205,20 @@
       "bases:Criar nova base": false
     }
   },
-  "active": "0230f97c90d13af4",
-  "lastOpenFiles": []
+  "active": "0f328e6ee4516ab6",
+  "lastOpenFiles": [
+    "knowledge-base/wiki/log.md",
+    "knowledge-base/wiki/integrations/infraestrutura-tecnica.md",
+    "knowledge-base/wiki/features/secretaria-ai-mes2.md",
+    "knowledge-base/wiki/features/secretaria-ai-gabi.md",
+    "knowledge-base/wiki/features/bot-gabi.md",
+    "Captura de tela 2026-05-06 082219.png",
+    "knowledge-base/wiki/tracking.canvas",
+    "knowledge-base/wiki/tracking.canvas.tmp.23956.c3b8cdb7493c",
+    "designer/frontend/src/app/[marca]/configuracoes/canva/canva.module.css",
+    "designer/frontend/src/app/[marca]/configuracoes/canva/page.tsx",
+    "designer/frontend/src/app/[marca]/configuracoes/canva",
+    "designer/backend/src/routes/canva.ts",
+    "designer/backend/src/lib/canvaClient.ts"
+  ]
 }

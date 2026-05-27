@@ -13,15 +13,15 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "wiki/outputs/designer-auditoria-jornada.canvas",
+                "file": "wiki/tracking.canvas",
                 "viewState": {
-                  "x": 960,
-                  "y": 337.07213765718063,
-                  "zoom": -0.7561246686000402
+                  "x": 9705.253829536337,
+                  "y": 448.68873666552037,
+                  "zoom": -0.8098763087618177
                 }
               },
               "icon": "lucide-layout-dashboard",
-              "title": "designer-auditoria-jornada"
+              "title": "tracking"
             }
           }
         ]
@@ -56,7 +56,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:gabi",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -185,28 +185,44 @@
   },
   "active": "93041ca7fffbb64c",
   "lastOpenFiles": [
-    "wiki/outputs/auditoria-ux-logica-designer.md",
-    "wiki/outputs/auditoria-libs-configs.md",
+    "wiki/migrations/2026-05-03.md",
     "wiki/migrations/2026-04-22.md",
+    "wiki/integrations/stripe-webhook.md",
     "wiki/integrations/infraestrutura-tecnica.md",
-    "wiki/features/secretaria-ai-gabi.md",
-    "wiki/features/bot-gabi.md",
-    "wiki/tracking.canvas",
-    "wiki/index.md",
-    "wiki/stakeholders/amanda-coelho.md",
-    "wiki/stakeholders/gabi.md",
-    "wiki/stakeholders/assinatura-marca-propria.md",
-    "wiki/log.md",
-    "wiki/overview.md",
+    "wiki/integrations/canva-connect-api.md",
+    "wiki/decisions/adr-006-editor-visual-alternativas-canva.md",
+    "wiki/decisions/adr-005-canva-api-migração.md",
+    "wiki/decisions/adr-004-fabrica-arquitetura-v3.md",
+    "wiki/decisions/adr-003-infra-compartilhada.md",
+    "wiki/decisions/adr-001-next-express-separados.md",
+    "wiki/decisions/adr-002-gemini-llm-designer.md",
+    "wiki/outputs/agentes-mapa-funcoes.canvas",
     "CLAUDE.md",
-    "wiki/features/agente-designer.md",
-    "wiki/features/automacao-notificacao-marcelle.md",
-    "wiki/stakeholders/marcelle.md",
+    "wiki/tracking.canvas",
     "wiki/workflows/escopo-projeto-assinatura.md",
-    "wiki/architecture/designer-frontend.md",
-    "CLAUDE.md.tmp.5808.1776895101452",
-    "wiki/stakeholders",
-    "wiki/architecture/designer-backend.md",
-    "git/config.json"
+    "wiki/features/designer/design-document-compiler.md",
+    "wiki/features/designer/design-document-renderer.md",
+    "wiki/stakeholders/amanda-coelho.md",
+    "wiki/stakeholders/assinatura-marca-propria.md",
+    "wiki/workflows/secretaria/secretaria-ai-sistema.md",
+    "wiki/architecture/designer/render-layout-as-data.md",
+    "wiki/architecture/designer/designer-frontend.md",
+    "wiki/architecture/designer/designer-backend.md",
+    "wiki/architecture/designer/design-document-hibrido.md",
+    "wiki/architecture/designer/agente-multimodelo.md",
+    "wiki/outputs/timeline-calendario-obsidian-2026-04-01-2026-05-14.md",
+    "wiki/outputs/revisao-contratual-escopo-cronograma-aceite-2026-05-14.md",
+    "wiki/outputs/relatorio-entregas-valor-agregado-2026-05-14.md",
+    "wiki/outputs/calendario-notion-execucao-2026-04-01-2026-05-13.csv",
+    "wiki/outputs/designer-auditoria-jornada.canvas",
+    "wiki/log.md.tmp.20248.c6ab24c99409",
+    "wiki/features/agente-designer.md.tmp.20248.3c0126c09860",
+    "wiki/features/agente-designer.md.tmp.20248.767c7db19b46",
+    "wiki/features/agente-designer.md.tmp.20248.978234f287ee",
+    "wiki/architecture/designer-frontend.md.tmp.20248.4dae4ba9d6cf",
+    "wiki/architecture/designer-frontend.md.tmp.20248.25f415306b37",
+    "wiki/architecture/designer-frontend.md.tmp.20248.7b6f58e5831e",
+    "wiki/architecture/designer-frontend.md.tmp.20248.f58839c77cb1",
+    "CLAUDE.md.tmp.5808.1776895101452"
   ]
 }

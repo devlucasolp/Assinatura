@@ -2,27 +2,26 @@
 title: Arquitetura Frontend — Designer
 type: architecture
 tags:
-  - "next.js"
-  - "react"
-  - "typescript"
-  - "app-router"
-  - "canvas-editor"
-  - "branding"
-  - "dynamic-routes"
-  - "sse"
+  - react
+  - typescript
+  - app-router
+  - canvas-editor
+  - branding
+  - dynamic-routes
+  - sse
 sources:
-  - "designer/frontend/src/app/[marca]/fabrica/page.tsx"
-  - "designer/frontend/src/lib/api.ts"
-  - "designer/frontend/src/components/Editor/CanvasEditor.tsx"
+  - designer/frontend/src/app/[marca]/fabrica/page.tsx
+  - designer/frontend/src/lib/api.ts
+  - designer/frontend/src/components/Editor/CanvasEditor.tsx
 created: 2026-04-22
-updated: 2026-05-13
+updated: 2026-05-25
 ---
 
 # Arquitetura Frontend — Designer
 
 ## Resumo
 
-Next.js com App Router e TypeScript. A rota dinâmica `[marca]` isola o contexto de cada brand — todas as páginas dentro dela recebem o `slug` da marca via `useParams()`. A "Fábrica" é o hub de criação (chat com IA + Nano Banana). O **CanvasEditor** é o editor visual embarcado (react-rnd), reativado em 2026-05-11 após ADR-006. Comunicação com backend em `localhost:4000` via `fetch` + SSE para streaming.
+Next.js com App Router e TypeScript. A rota dinâmica `[marca]` isola o contexto de cada brand — todas as páginas dentro dela recebem o `slug` da marca via `useParams()`. A "Fábrica" é o hub de criação e hoje opera no runtime real como chat conversacional híbrido com `useFabricaWs`, preview em tempo real e composer sempre disponível. O **CanvasEditor** é o editor visual embarcado (react-rnd), reativado em 2026-05-11 após ADR-006. A comunicação com o backend combina `fetch`, build de contexto por rota dinâmica e WebSocket para a sessão ativa da Fábrica.
 
 ## Detalhes
 
@@ -196,3 +195,4 @@ Observações:
 - [[adr-006-editor-visual-alternativas-canva]]
 - [[adr-005-canva-api-migração]]
 - [[qualidade-lint-build]]
+- [[design-document-compiler]]

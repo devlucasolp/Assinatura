@@ -18,26 +18,29 @@ Se `$ARGUMENTS` estiver vazio, pergunte ao usuário qual arquivo ingerir.
 
 1. **Ler o schema** — `knowledge-base/CLAUDE.md` (se ainda não foi lido nesta sessão).
 2. **Ler o arquivo-fonte** — `$ARGUMENTS` completo. Se for diretório, liste `.md` dentro e pergunte qual.
-3. **Classificar** — determine o `type` com base no conteúdo:
-   - contém "decidimos / em vez de / trade-off" → `decision`
-   - descreve feature pronta → `feature`
-   - fala de API/SDK externo → `integration`
+3. **Classificar** — determine o `type`:
+   - "decidimos / em vez de / trade-off" → `decision`
+   - feature pronta → `feature`
+   - API/SDK externo → `integration`
    - cert/OAuth/auth/key → `security`
    - fluxo ponta-a-ponta → `workflow`
    - diagrama/padrão/C4 → `architecture`
-4. **Extrair** os blocos exigidos pelo template:
+   - pessoa/empresa → `stakeholder`
+4. **Decidir namespace** (se projeto for multi-produto) — qual sub-produto a fonte cobre. Vai virar subpasta: `wiki/<tipo>/<namespace>/<slug>.md`.
+5. **Extrair** blocos do template:
    - **Resumo** (2–4 frases, suas palavras — não copiar prosa do fonte).
    - **Detalhes** estruturados (headings + listas).
    - **Decisões Tomadas** (trade-offs explícitos).
    - **Learnings** (bugs, pegadinhas, dívidas).
-   - **Relacionados** (use `Grep` no `wiki/` para achar páginas com tags ou termos em comum).
-5. **Escolher o slug** — kebab-case, curto, descritivo. Ex: `multi-empresa`, `serpro-timeout`.
-6. **Escrever a página** em `knowledge-base/wiki/<pasta-do-type>/<slug>.md` com o frontmatter obrigatório:
+   - **Relacionados** (use `Grep` no `wiki/` para achar páginas com tags em comum).
+6. **Escolher slug** — kebab-case, curto, descritivo. Ex: `multi-empresa`, `serpro-timeout`.
+7. **Escrever página** em `knowledge-base/wiki/<tipo>/[namespace/]<slug>.md` com frontmatter obrigatório:
 
    ```yaml
    ---
    title: ...
    type: <type>
+   namespace: <namespace>      # se aplicável
    tags: [...]
    sources: [<caminho/ao/arquivo>]
    created: <hoje ISO>
@@ -45,26 +48,38 @@ Se `$ARGUMENTS` estiver vazio, pergunte ao usuário qual arquivo ingerir.
    ---
    ```
 
-7. **Atualizar `index.md`** — adicionar linha `- [Título](pasta/slug.md) — resumo em 1 frase` na seção do type (remover placeholder "Nenhuma página ainda" se presente).
-8. **Append `log.md`** — nova linha:
-   `- \`<YYYY-MM-DD HH:MM> | ingest | <slug> | <pasta>/<slug>.md\``
-9. **Atualizar `tracking.canvas`** — adicionar nó `type: "file"` com `"file": "knowledge-base/wiki/<pasta>/<slug>.md"` e um edge do último nó textual de data para ele. Use `Read` para pegar o JSON atual, modifique, `Write` de volta.
-10. **Relatar** ao usuário: caminho da página, seção atualizada no index, link clicável.
+8. **Atualizar `index.md`** — adicionar `- [Título](pasta/slug.md) — resumo em 1 frase` na seção correta.
+9. **Append `log.md`**:
+
+   ```
+   ## [<YYYY-MM-DD>] ingest | <título>
+   Resumo em 1-2 frases.
+   Pages touched: <pasta>/<slug>.md, index.md
+   Canvas: ingest-<YYYY-MM-DD>-N, file_<slug>
+   ```
+
+10. **Atualizar `tracking.canvas`**:
+    - Se não existir nó `save-date-<hoje>`, criar nó cinza.
+    - Adicionar nó **roxo** (`color: "6"`) com `📥 <YYYY-MM-DD> — Ingest #N`.
+    - Adicionar file-node `type: "file"`, `file: "wiki/<pasta>/<slug>.md"` abaixo do nó ingest.
+    - Edges: save-date → ingest (label `em`), ingest → file-node (label `documenta`).
+11. **Relatar** ao usuário: caminho da página, seção do index atualizada, link clicável.
 
 ## Regras (inegociáveis)
 
-- Nunca reescrever o `log.md`, apenas append.
-- Nunca sobrescrever uma página existente sem confirmar com o usuário primeiro — se o slug já existe, proponha `<slug>-v2` ou sugerir merge.
+- Nunca reescrever `log.md`, apenas append.
+- Nunca sobrescrever página existente sem confirmar — se slug já existe, proponha `<slug>-v2` ou sugerir merge.
 - Links dentro da wiki são sempre **relativos**.
 - Se detectar contradição com página existente, adicionar `> ⚠️ CONFLITO: ver [outra-pagina.md](...)` na página antiga e relatar ao usuário.
+- File-node no canvas usa caminhos **a partir da raiz do vault** (`knowledge-base/`), ou seja `wiki/...` sem prefixo.
 
 ## Saída esperada
 
 ```
-✅ Ingerido: feature-multi-empresa.md → knowledge-base/wiki/features/multi-empresa.md
+✅ Ingerido: feature-x.md → knowledge-base/wiki/features/x.md
 📚 Index atualizado (seção Features)
-📜 Log: 2026-04-22 14:32
-🎨 Canvas: nó adicionado e conectado
+📜 Log: 2026-05-14
+🎨 Canvas: ingest-2026-05-14-1 + file_x
 
-Próximo passo sugerido: /memory-query "…"
+Próximo passo sugerido: /memory-query "..."
 ```

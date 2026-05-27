@@ -16,14 +16,14 @@ sources:
   - designer/frontend/src/app/[marca]/fabrica/page.tsx
   - designer/backend/prisma/schema.prisma
 created: 2026-04-22
-updated: 2026-05-12
+updated: 2026-05-25
 ---
 
 # Agente Designer
 
 ## Resumo
 
-App web de geração de designs visuais com IA, construído em Next.js (frontend) + Express (backend) + PostgreSQL via Prisma. Cada marca tem seu próprio agente configurado (guidelines, prompt, cores, fontes). O usuário descreve o que quer na "Fábrica" e o backend chama o Nano Banana (Gemini 2.5 Flash Lite) que devolve um JSON de camadas (layers); ~~o editor visual renderiza e exporta as camadas~~ **[DEPRECATED — ADR-005]** a edição visual migra para a Canva Connect API. Sprint 0 concluído em 2026-04-25. **ADR-005 (2026-05-05):** CanvasEditor substituído pela Canva Connect API — edição, assets e export delegados ao Canva.
+App web de geração de designs visuais com IA, construído em Next.js (frontend) + Express (backend) + PostgreSQL via Prisma. Cada marca tem seu próprio agente configurado (guidelines, prompt, cores, fontes e, agora, `presentationConfig`). O runtime real da Fábrica passou a operar como orquestrador conversacional híbrido com WebSocket, perguntas estruturadas, preview em tempo real e persistência de contexto com a galeria. A iteração mais recente consolidou o contrato de sessão/perguntas, reforçou a regra de leitura com superfícies brancas e texto preto nas áreas escritas e elevou o acabamento visual do chat ativo. Resultado registrado para a iteração: **8.7/10**.
 
 ## Detalhes
 
@@ -86,7 +86,7 @@ Fluxo alternativo — geração direta de imagem:
 |---|---|
 | `User` | id, email, password, name, role (ADMIN/DESIGNER) |
 | `Brand` | id, slug, name, color, userId |
-| `BrandConfig` | agentPrompt, primaryFonts, colors[], guidelines, logoUrl — 1:1 com Brand |
+| `BrandConfig` | agentPrompt, primaryFonts, colors[], guidelines, logoUrl, presentationConfig — 1:1 com Brand |
 | `Reference` | name, status (PENDING/ANALYZED/FAILED), insights, insightsText |
 | `Post` | type (CAROUSEL/SINGLE_IMAGE/ANIMATION), status (DRAFT/GENERATING/READY/FAILED), content (Json layers) |
 
@@ -97,7 +97,7 @@ Fluxo alternativo — geração direta de imagem:
 - **Layer types:** `text`, `image`, `shape` — cada uma com `x, y, width, height, zIndex, color, fontFamily, fontSize`
 - **Dimensões:** carousel/single = 1080×1080; story = 1080×1920
 - **Validação pós-geração:** `validateLayers()` clampa `x/y/width/height` dentro dos limites do canvas (sem layers off-screen)
-- **Regra global de contraste (2026-05-13):** textos precisam contrastar sempre com o fundo; branco em fundo escuro, preto em fundo claro; sobre foto/imagem/gradiente complexo o backend ativa `contrastBackground` com box preto/branco translúcido editável no canvas.
+- **Regra global de contraste (2026-05-25):** áreas com escrita devem tender a superfície branca com texto preto; sobre foto/imagem/gradiente complexo o backend força caixa branca de leitura (`contrastBackground`) e preserva a ousadia cromática para áreas decorativas.
 - **Zonas de texto:** recebe `TextZonesPerSlide` (JSON estruturado por slide) — proibido shapes opacas (opacity > 0.35) sobre essas zonas
 - **Paleta de cores:** prompt extrai as cores da marca do brandContext e instrui uso exclusivo delas
 - **Consistência entre slides:** instruído a variar composição mas manter mesma paleta, família de formas e linguagem visual

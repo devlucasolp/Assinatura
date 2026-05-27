@@ -289,10 +289,12 @@ Com isso, posts antigos continuam abrindo. Posts novos podem começar como `hybr
 
 ### Fase 2 — Compiler para layers
 
-- Criar `compileDesignDocumentToPages(document)`.
-- Gerar `pages` compatíveis com `CanvasEditor`.
-- Salvar `document + pages` no `Post.content`.
-- Adaptar Galeria e Editor para reconhecer `hybrid-design`.
+- ✅ Criar `compileDesignDocumentToPages(document)` no frontend.
+- ✅ Gerar `pages` compatíveis com `CanvasEditor` em runtime quando `hybrid-design.pages` não existir.
+- 🔄 Salvar `document + pages` no `Post.content`.
+- ✅ Adaptar Galeria e Editor para reconhecer `hybrid-design` via helpers centralizados.
+
+Registro detalhado: [[design-document-compiler]].
 
 ### Fase 3 — Edição containerizada
 

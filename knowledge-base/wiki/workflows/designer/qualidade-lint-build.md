@@ -2,15 +2,14 @@
 title: Qualidade — Lint e Build (Designer)
 type: workflow
 tags:
-  - "qualidade"
-  - "eslint"
-  - "lint"
-  - "build"
-  - "next.js"
-  - "express"
+  - qualidade
+  - eslint
+  - lint
+  - build
+  - express
 sources:
-  - "designer/frontend/eslint.config.mjs"
-  - "designer/backend/eslint.config.mjs"
+  - designer/frontend/eslint.config.mjs
+  - designer/backend/eslint.config.mjs
 created: 2026-04-27
 updated: 2026-04-27
 ---

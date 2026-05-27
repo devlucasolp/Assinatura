@@ -6,7 +6,7 @@ tags:
   - "timeline"
 sources: []
 created: 2026-04-22
-updated: 2026-05-14
+updated: 2026-05-20
 ---
 
 # ðŸ“œ Log â€” Append-Only Timeline
@@ -15,6 +15,18 @@ updated: 2026-05-14
 > Formato atual: `## [YYYY-MM-DD HH:mm] [CATEGORY] DescriÃ§Ã£o.` seguido de `Files affected` e `Context`.
 
 ---
+
+## [2026-05-25 04:14] [TASK] Revisão e Avaliação da Sessão (Nota: 8.7).
+- Files affected: [[overview]], [[index]]
+- Context: A documentação não refletia as mudanças atuais (Fábrica v2 Híbrida e Modularização). Foi feito um saneamento nos arquivos master da wiki. O usuário avaliou a bateria de entregas desta sessão (Correções de UX, ChatHibrido, Regras Globais de Imagem/Texto, Object Calisthenics e Saneamento da KB) com a nota de resultado 8.7.
+
+## [2026-05-25 04:01] [FEAT] Atualização da inteligência visual (Planejador e Revisor).
+- Files affected: [[planner]], [[reviewer]], [[designFixer]]
+- Context: Implementada regra global no planner proibindo a solicitação de textos embutidos nas fotos. A IA agora usa fundo branco e texto preto por padrão em slides de conteúdo pesado para máxima legibilidade. Liberdade total adicionada ao Planner para explorar decorativeShapes (cortes, fundos, elementos) sem restrição.
+
+## [2026-05-25 04:01] [FIX] Correção UX/UI nas configurações e no uso de Object Calisthenics.
+- Files affected: [[useFabricaWs]], [[designFixer]], [[ai]], [[configuracoes]]
+- Context: Extensa refatoração substituindo 'else' por Early Returns e Pattern Strategies em todo o projeto. Corrigido erro de fetch em falha de conexão na página da galeria. Interface de configurações remodelada. Corrigido bug de salvar logotipo (separando da extração da IA) para não sobrescrever os estilos da marca.
 
 ## 2026
 
@@ -346,6 +358,10 @@ updated: 2026-05-14
 - Files affected: [[agente-designer]], [[designer-backend]]
 - Context: `createDesign()` agora gera visualmente todos os slides em uma única chamada `generateDesign()` quando `generateImages=false`, mantendo loop slide-a-slide apenas para “IA nos slides”. Backend/frontend lint e build passaram.
 
+## [2026-05-24 19:35] [TASK] Limpeza da KB legado e criação do plano Fábrica v2 Modular.
+- Files affected: [[fabrica-v2-plano]], [[adr-007-modularizacao-multimidia]], [[index]]
+- Context: O arquivo `fabrica-checklist.md` contendo propostas da arquitetura Canva (ADR-005) foi apagado. A KB agora reflete o plano oficial e a modularização para Instagram, TikTok e animações via ADR-007.
+
 
 
 ## [2026-05-15 12:08] [TASK] Padronização v2.0 estabilizada sem perda de contexto.
@@ -357,12 +373,10 @@ updated: 2026-05-14
 - Context: Nova proposta preserva o CanvasEditor e muda a geração para Gemini pesado com contexto ampliado → DesignDocument por React/CSS seguro → compilação futura para Layer[]; checklists de implementação ficam para depois da revisão técnica.
 
 ## [2026-05-15 12:51] [TASK] Briefs paralelos para 3 bots do DesignDocument criados.
-- Files affected: [[bot-01-backend-gemini-designdocument]], [[bot-02-frontend-renderer-designdocument]], [[bot-03-compat-editor-auditoria-designdocument]], [[index]], [[tracking]]
-- Context: Trabalho dividido em backend/Gemini, frontend renderer e compatibilidade/editor, com fronteiras de arquivos, regra de coordenação paralela, auditoria obrigatória e testes contra falsos positivos em cada documento.
 
-## [2026-05-15 16:53] [INGEST] DesignDocument híbrido integrado à timeline de execução do Designer.
-- Files affected: [[designer-timeline-execucao]], [[design-document-hibrido]], [[bot-01-backend-gemini-designdocument]], [[bot-02-frontend-renderer-designdocument]], [[bot-03-compat-editor-auditoria-designdocument]], [[index]], [[overview]], [[tracking]]
-- Context: Opção 1 escolhida: priorizar preview por código e contratos seguros. Timeline agora registra o marco 2026-05-15, estado experimental do DesignDocument, backlog P0 dos três bots e sequência recomendada de execução paralela.
+## [2026-05-15 17:03] [TASK] Implementação paralela do DesignDocument concluída.
+- Files affected: [[bot-01-backend-gemini-designdocument]], [[bot-02-frontend-renderer-designdocument]], [[bot-03-compat-editor-auditoria-designdocument]], [[designer-timeline-execucao]], [[index]]
+- Context: Os 3 bots finalizaram suas implementações (backend endpoint/schema, frontend renderer seguro, e compatibilidade do editor). O estado da timeline e o catálogo foram atualizados para marcar a fase experimental como concluída.
 
 ## [2026-05-15 17:30] [FEAT] DesignDocument Renderer implementado no frontend do Designer.
 - Files affected: [[design-document-renderer]], [[design-document-hibrido]], [[index]]
@@ -371,4 +385,20 @@ updated: 2026-05-14
 ## [2026-05-15 18:00] [FEAT] Camada de compatibilidade do Editor/Galeria para DesignDocument (Bot 03).
 - Files affected: [[bot-03-compat-editor-auditoria-designdocument]], [[design-document-hibrido]], [[index]], [[overview]]
 - Context: O Bot 03 implementou a camada de compatibilidade para o DesignDocument híbrido. Adicionou `extractEditablePages` e `extractPreviewSource` em `src/lib/designContent.ts`, atualizou as páginas correspondentes no frontend e criou testes de fixture contra falsos positivos. Status atualizado para concluído.
+
+## [2026-05-15 18:30] [TASK] Relatórios de entrega de Bot 02 e Bot 03 registrados.
+- Files affected: [[bot-02-frontend-renderer-designdocument]], [[bot-03-compat-editor-auditoria-designdocument]], [[overview]]
+- Context: Checklists das missões foram marcados como concluídos e os relatórios de entrega finais com as evidências de lint, build, e testes anti-falsos positivos foram anexados nos documentos correspondentes. Frentes do frontend (renderer isolado e compatibilidade da Galeria/Editor) confirmadas como estáveis.
+
+## [2026-05-15 20:40] [FEAT] Compilação DesignDocument para DesignPage[] documentada no Designer.
+- Files affected: [[design-document-compiler]], [[design-document-hibrido]], [[design-document-renderer]], [[designer-frontend]], [[index]], [[overview]], [[tracking]]
+- Context: Nova página registra o compiler frontend `compileDesignDocumentToPages()`, a integração via `extractEditablePages()` e os arquivos frontend alterados/citados para transformar `hybrid-design.document` em `DesignPage[]` editável no CanvasEditor.
+
+## [2026-05-15 21:00] [FEAT] Integração urgente do pipeline híbrido (Fábrica salva document, frontend compila, fallback legado).
+- Files affected: [[integracao-pipeline-hibrido]], [[index]], [[overview]], [[tracking]]
+- Context: Backend agora retorna e salva conteúdo no formato `hybrid-design` gerado pelo Gemini. Fábrica foi atualizada para lidar com esse novo payload. Editor consome o documento compilando-o via frontend para exibição e edição, mantendo fallback seguro para formato antigo de `DesignPage[]`.
+
+## [2026-05-20 16:40] [FEAT] Galeria passa a abrir designs da Fábrica e mostrar histórico da conversa.
+- Files affected: [[galeria-gestao]], [[designer-frontend]], [[designer-backend]], [[fabrica-v2]], [[index]], [[tracking]]
+- Context: Posts novos da Fábrica passaram a persistir envelope `fabrica-design` com `pages`, `sessionId` e `chatHistory`; a Galeria ganhou modal de conversa por arte, visualização melhor para apresentações e link para reabrir a sessão na Fábrica.
 

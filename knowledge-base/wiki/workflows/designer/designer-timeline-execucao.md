@@ -247,6 +247,21 @@ Este documento consolida a execução do **Designer IA** a partir da KB canônic
 
 ---
 
+### 2026-05-15 - Implementação paralela do DesignDocument concluída
+
+**Estado:** infraestrutura híbrida baseada em código e compilação para o Designer IA concluída (Bots 01, 02 e 03).
+
+**O que foi entregue:**
+- **Bot 01:** Implementação do backend (tipos, schemas, endpoint experimental `POST /api/ai/:slug/generate-design-document`) integrando Gemini com inteligência pesada para gerar `HybridDesignPostContent`.
+- **Bot 02:** Implementação do renderer frontend isolado (`DesignDocumentRenderer`), interpretando `DesignDocument` com regras estritas de CSS/React sem permitir HTML/CSS livre.
+- **Bot 03:** Camada de compatibilidade e extração segura (`extractEditablePages`) inserida no Editor e Galeria, blindando falsos positivos e permitindo lidar com designs legados, baseados em imagem e formato híbrido.
+
+**Documentos relacionados:** [[bot-01-backend-gemini-designdocument]], [[bot-02-frontend-renderer-designdocument]], [[bot-03-compat-editor-auditoria-designdocument]], [[design-document-hibrido]].
+
+**Resultado:** o Designer agora conta com a rota experimental de qualidade visual (`DesignDocument`) de forma segura, convivendo de maneira compatível com o CanvasEditor atual.
+
+---
+
 ### 2026-05-15 - DesignDocument híbrido e execução paralela por bots
 
 **Estado:** proposta arquitetural aceita como direção experimental, com implementação dividida em três frentes paralelas.
@@ -289,7 +304,7 @@ Este documento consolida a execução do **Designer IA** a partir da KB canônic
 | Fábrica v2 | ✅ Estável | Wizard 3 etapas, preview responsivo e assets por projeto |
 | Pipeline IA de design | ✅ Funcional / em evolução | 3 passos com text layers + NanoBanana + validação de canvas; DesignDocument híbrido entra como rota experimental de qualidade visual |
 | Tool Imagem | ✅ Funcional | FAL AI primário, fallback Pollinations, persistência em base64/dataUrl |
-| DesignDocument híbrido | 🔬 Experimental | Direção proposta: preview por React/CSS seguro, depois compilação para Layer[] |
+| DesignDocument híbrido | ✅ Concluído (Fase 1) | Endpoint backend, renderer seguro frontend e compatibilidade implementados; pipeline está pronto para uso experimental |
 | Editor visual | ✅ Ativo | CanvasEditor próprio reativado, multi-select, propriedades, preview de animação; deve abrir hybrid-design só quando pages existir |
 | Galeria | ✅ Estável | Pastas, DND, preview, exclusão e mutate |
 | Canva Connect | 🟡 Stand-by/histórico | Código ainda existe, mas não é caminho principal por ADR-006 |
@@ -304,9 +319,6 @@ Este documento consolida a execução do **Designer IA** a partir da KB canônic
 
 | Item | Por que falta | Documento base |
 |---|---|---|
-| Implementar Bot 01 do DesignDocument | Backend precisa gerar `hybrid-design` validado com Gemini pesado sem persistência arriscada inicial | [[bot-01-backend-gemini-designdocument]], [[design-document-hibrido]] |
-| Implementar Bot 02 do DesignDocument | Frontend precisa renderizar `DesignDocument` por React/CSS seguro sem executar código arbitrário | [[bot-02-frontend-renderer-designdocument]], [[design-document-hibrido]] |
-| Implementar Bot 03 do DesignDocument | Editor e Galeria precisam diferenciar posts antigos, imagem e `hybrid-design` parcial sem falso positivo | [[bot-03-compat-editor-auditoria-designdocument]], [[qualidade-lint-build]] |
 | Revalidar ownership em `/settings/*` e rotas por slug | A KB contém conflito: auditoria antiga marcava como gap e outros outputs registram como feito | [[auditoria-ux-logica-designer]], [[designer-backend]] |
 | Confirmar tratamento de posts `content.type === 'image'` no editor | Auditoria antiga apontava canvas vazio para posts de imagem; documentos posteriores dizem que foi feito | [[auditoria-ux-logica-designer]], [[agente-designer]], [[designer-frontend]] |
 | Atualizar docs que ainda tratam Canva como futuro principal | ADR-006 substituiu a direção da ADR-005; algumas páginas ainda descrevem Canva como planejamento ativo | [[adr-005-canva-api-migração]], [[canva-connect-api]], [[agente-designer]], [[overview]] |
@@ -336,29 +348,24 @@ Este documento consolida a execução do **Designer IA** a partir da KB canônic
 
 ## Próxima sequência recomendada
 
-1. **Executar DesignDocument híbrido em três frentes paralelas**
-   - Bot 01: backend/Gemini, schema e endpoint experimental.
-   - Bot 02: renderer React/CSS seguro com fixture local.
-   - Bot 03: compatibilidade de Editor/Galeria e auditoria anti-falso-positivo.
-
-2. **Sanitizar a KB do Designer pós-ADR-006**
+1. **Sanitizar a KB do Designer pós-ADR-006**
    - Atualizar páginas que ainda dizem que Canva é o caminho principal.
    - Marcar Canva Connect como histórico/stand-by.
 
-3. **Fechar verificação de segurança e dados**
+2. **Fechar verificação de segurança e dados**
    - Confirmar ownership real por slug.
    - Confirmar comportamento do editor com posts de imagem.
 
-4. **Validar com Gabi**
+3. **Validar com Gabi**
    - Testar fluxo: configurar marca -> gerar design -> editar múltiplas layers -> salvar -> visualizar na Galeria.
    - Coletar atritos reais antes de adicionar novas features grandes.
 
-5. **Limpar dívida técnica sem mudar produto**
+4. **Limpar dívida técnica sem mudar produto**
    - Remover imports/deps mortas.
    - Isolar código Canva morto.
    - Consolidar tipos compartilhados.
 
-6. **Escolher evolução da Fábrica por último**
+5. **Escolher evolução da Fábrica por último**
    - Manter a Fábrica v2/Wizard como base enquanto o MVP é estabilizado.
    - Resolver ADR-004 somente depois de validação com Gabi, correções críticas e limpeza pós-ADR-006.
    - Se mantiver Wizard, evoluir biblioteca de layouts e UX dentro da arquitetura atual.

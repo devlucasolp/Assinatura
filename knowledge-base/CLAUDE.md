@@ -1,152 +1,182 @@
-# Assinatura — Knowledge Base Schema
+# Projeto Assinatura â€” Knowledge Base Schema (Karpathy v2.0)
 
-> Este arquivo é o **contrato** que o Claude (Code ou Cowork) lê ao operar esta wiki.
-> Padrão: **Karpathy LLM-Wiki + Obsidian Vault**.
-> Status: wiki viva, append-only log, consolidação semanal correlacionada com GitHub.
+> **Contrato** que Claude (Code ou Cowork) lÃª ao operar esta wiki.
+> PadrÃ£o: **Karpathy LLM-Wiki + Obsidian Vault + GitHub feedback loop** (Tzolkin v2.0).
+> Cobre os 3 sub-produtos do contrato Assinatura: **Secretaria A.I. (Gabi)**, **AutomaÃ§Ã£o NotificaÃ§Ã£o (Marcelle)** e **Designer IA**.
+> Status: wiki viva Â· log append-only Â· consolidaÃ§Ã£o semanal Â· canvas timeline.
 
 ---
 
-## 📁 Estrutura
+## âš ï¸ MigraÃ§Ã£o em andamento (2026-05-14)
+
+Esta KB foi criada para substituir a antiga em `Assinatura/designer/knowledge-base/`, que vivia indevidamente dentro de `designer/` apesar de cobrir todos os 3 sub-produtos.
+
+**Estado atual:**
+- â³ KB nova em `Assinatura/knowledge-base/` (este folder) â€” estrutura criada, conteÃºdo pendente de migraÃ§Ã£o
+- âš ï¸ KB antiga em `Assinatura/designer/knowledge-base/` â€” ainda ativa, contÃ©m todas as pÃ¡ginas
+- ðŸ“‹ Script de migraÃ§Ã£o: `MIGRATE-KB-CONTENT.ps1` neste folder (mover wiki pages com namespaces)
+
+Quando a migraÃ§Ã£o for executada, a KB antiga serÃ¡ marcada como `knowledge-base.legacy/` e este folder passarÃ¡ a ser a fonte de verdade.
+
+---
+
+## ðŸ“ Estrutura
 
 ```
 knowledge-base/
-├── CLAUDE.md              ← este arquivo (schema + regras)
-├── git/
-│   └── config.json        ← repo remoto para consolidate (gerado no 1º uso)
-└── wiki/
-    ├── index.md           ← catálogo master (TOC de todas as páginas)
-    ├── log.md             ← append-only timeline (data + ação + link)
-    ├── overview.md        ← síntese dinâmica do estado atual
-    ├── tracking.canvas    ← Obsidian Canvas (timeline visual)
-    ├── architecture/      ← C4, padrões, system design
-    ├── features/          ← features implementadas
-    ├── integrations/      ← third-parties (APIs, serviços externos)
-    ├── security/          ← certificados, OAuth, keys, auth flows
-    ├── workflows/         ← fluxos de negócio
-    ├── decisions/         ← ADRs (Architecture Decision Records)
-    ├── stakeholders/      ← pessoas e organizações (perfil, papel, dores)
-    ├── migrations/        ← relatórios semanais (consolidate)
-    └── outputs/           ← queries arquivadas
+â”œâ”€â”€ CLAUDE.md              â† este arquivo (schema + regras)
+â”œâ”€â”€ MIGRATE-KB-CONTENT.ps1 â† script para mover conteÃºdo da KB antiga (rodar 1x)
+â”œâ”€â”€ git/
+â”‚   â””â”€â”€ config.json        â† repo remoto para consolidate
+â””â”€â”€ wiki/
+    â”œâ”€â”€ index.md           â† catÃ¡logo master
+    â”œâ”€â”€ log.md             â† append-only timeline
+    â”œâ”€â”€ overview.md        â† sÃ­ntese dinÃ¢mica
+    â”œâ”€â”€ tracking.canvas    â† timeline visual (estilo haylanderform)
+    â”œâ”€â”€ architecture/
+    â”‚   â”œâ”€â”€ secretaria/    â† arquitetura Bot Gabi (FastAPI)
+    â”‚   â”œâ”€â”€ designer/      â† arquitetura Designer (Next+Express)
+    â”‚   â””â”€â”€ marcelle/      â† arquitetura AutomaÃ§Ã£o Marcelle
+    â”œâ”€â”€ features/
+    â”‚   â”œâ”€â”€ secretaria/    â† features Secretaria AI
+    â”‚   â”œâ”€â”€ designer/      â† features Designer
+    â”‚   â””â”€â”€ marcelle/      â† features Marcelle
+    â”œâ”€â”€ integrations/      â† third-parties (plano â€” geralmente cross-cutting)
+    â”œâ”€â”€ security/          â† LGPD, OAuth, keys (plano)
+    â”œâ”€â”€ workflows/
+    â”‚   â”œâ”€â”€ secretaria/
+    â”‚   â”œâ”€â”€ designer/
+    â”‚   â””â”€â”€ marcelle/
+    â”œâ”€â”€ decisions/         â† ADRs (plano â€” frequente cross-cutting)
+    â”œâ”€â”€ stakeholders/      â† pessoas e organizaÃ§Ãµes (plano)
+    â”œâ”€â”€ migrations/        â† relatÃ³rios semanais (gerado)
+    â””â”€â”€ outputs/           â† queries arquivadas (plano por padrÃ£o; pode ter subpasta por produto se volumoso)
 ```
+
+### PrincÃ­pio de namespaces
+
+- **Use namespace** quando a pÃ¡gina fala **sÃ³ de um sub-produto**.
+- **Sem namespace** quando a pÃ¡gina Ã© **cross-cutting** (stakeholders, ADRs sobre infra compartilhada, integraÃ§Ãµes usadas por mais de um sub-produto, outputs de visÃ£o geral).
 
 ---
 
-## 🏷️ Types of Pages
+## ðŸ·ï¸ Tipos de PÃ¡gina
 
 | Type           | Pasta           | Quando criar                                              |
 | -------------- | --------------- | --------------------------------------------------------- |
-| `architecture` | `architecture/` | Padrão de design, C4, diagrama de sistema                 |
-| `feature`      | `features/`     | Feature implementada com suas decisões                    |
-| `decision`     | `decisions/`    | ADR — por que foi escolhido X em vez de Y                 |
-| `integration`  | `integrations/` | Contrato com serviço externo (Serpro, Caixa, Calima, etc) |
-| `security`     | `security/`     | Certs, API keys, OAuth, superfícies de ataque             |
-| `workflow`     | `workflows/`    | Fluxo ponta-a-ponta (usuário → backend → saída)           |
-| `migration`    | `migrations/`   | Relatório de consolidação semanal (gerado, não editar)    |
-| `output`       | `outputs/`      | Resposta arquivada de `/memory-query`                     |
-| `stakeholder`  | `stakeholders/` | Pessoa ou organização — perfil, papel, dores, contexto    |
+| `architecture` | `architecture/` | C4, padrÃµes, system design                                |
+| `feature`      | `features/`     | Feature/produto implementado                              |
+| `decision`     | `decisions/`    | ADR â€” por que X em vez de Y                               |
+| `integration`  | `integrations/` | ServiÃ§o externo (Asana, Stripe, Gemini, Evolution, etc.)  |
+| `security`     | `security/`     | LGPD, certs, OAuth, keys                                  |
+| `workflow`     | `workflows/`    | Fluxo ponta-a-ponta                                       |
+| `migration`    | `migrations/`   | ConsolidaÃ§Ã£o semanal (gerado)                             |
+| `output`       | `outputs/`      | Query arquivada                                           |
+| `stakeholder`  | `stakeholders/` | Pessoa ou organizaÃ§Ã£o                                     |
 
 ---
 
-## 📄 Template de Página
-
-Toda página nova DEVE começar com este frontmatter:
+## ðŸ“„ Template de PÃ¡gina
 
 ```yaml
 ---
-title: Título humano da página
-type: feature | decision | integration | security | workflow | architecture | migration | output
+title: TÃ­tulo humano
+type: feature | decision | integration | security | workflow | architecture | migration | output | stakeholder
+namespace: secretaria | designer | marcelle    # OPCIONAL â€” sÃ³ se aplicÃ¡vel
 tags: [tag1, tag2]
 sources: [caminho/ao/arquivo-origem.md, commit-sha, url]
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
+status: draft | active | deprecated             # OPCIONAL
 ---
 
-# Título humano da página
+# TÃ­tulo humano
 
 ## Resumo
-2–4 frases. O que esta página cobre e por que existe.
+2â€“4 frases.
 
 ## Detalhes
-Conteúdo estruturado. Seções livres conforme o tipo.
+ConteÃºdo estruturado.
 
-## Decisões Tomadas
-Trade-offs explícitos. O que foi rejeitado e por quê.
+## DecisÃµes Tomadas
+Trade-offs explÃ­citos.
 
 ## Learnings
-Bugs, patterns, pegadinhas, dívidas técnicas descobertas.
+Bugs, patterns, dÃ­vidas tÃ©cnicas.
 
 ## Relacionados
-- [Outro Título](../pasta/outra-pagina.md) — relação
+- [Outro](../pasta/outra.md) â€” relaÃ§Ã£o
 ```
 
 ---
 
-## 📜 Rules (invioláveis)
+## ðŸ“œ Rules (inviolÃ¡veis)
 
-1. ✅ **Links relativos sempre** — `[Title](architecture/frontend.md)`, nunca URL absoluta do vault.
-2. ✅ **Frontmatter YAML obrigatório** em toda página `.md` dentro de `wiki/`.
-3. ✅ **Atualizar `index.md` + `log.md` + `tracking.canvas`** a cada operação que cria/altera página.
-4. ✅ **Nunca editar `migrations/`** manualmente — é output gerado por `/memory-consolidate`.
-5. ✅ **Flag contradições explicitamente** — se duas páginas discordam, criar bloco `> ⚠️ CONFLITO: ...` na mais antiga.
-6. ✅ **`log.md` é append-only** — nunca reescrever linhas passadas, apenas adicionar novas.
-7. ✅ **Canvas refs** (`type: "file"`) usam caminhos relativos à raiz do vault começando com `knowledge-base/wiki/...`.
-8. ✅ **Nunca editar `raw/`** — se existir, é read-only (fontes originais preservadas).
-9. ✅ **Sync com GitHub semanal** via `/memory-consolidate`.
-
----
-
-## 🛠️ As 4 Operações
-
-As operações são expostas como **slash commands** em `.claude/commands/` (para Claude Code) e documentadas no **skill** em `.claude/skills/memory/SKILL.md` (para Cowork).
-
-### 1. `/memory-ingest <arquivo>`
-Lê arquivo bruto → cria página na pasta correta de `wiki/` → atualiza `index.md` + `log.md` + `tracking.canvas`.
-
-### 2. `/memory-query <pergunta>`
-Lê `index.md` → seleciona páginas relevantes → sintetiza resposta → oferece arquivar em `outputs/`.
-
-### 3. `/memory-lint`
-Auditoria de saúde: links quebrados, páginas órfãs, contradições, claims desatualizados, conceitos sem página.
-
-### 4. `/memory-consolidate`
-Correlaciona `git log` com `log.md` → gera `migrations/YYYY-MM-DD.md` → atualiza `overview.md`.
+1. âœ… **Links relativos sempre** â€” `[Title](features/designer/x.md)`.
+2. âœ… **Frontmatter YAML obrigatÃ³rio**.
+3. âœ… **Atualizar `index.md` + `log.md` + `tracking.canvas`** a cada operaÃ§Ã£o.
+4. âœ… **Nunca editar `migrations/`** manualmente.
+5. âœ… **Flag contradiÃ§Ãµes** com `> âš ï¸ CONFLITO: ...`.
+6. âœ… **`log.md` Ã© append-only**.
+7. âœ… **Canvas refs** â€” vault root = `knowledge-base/`. File-nodes usam `wiki/.../arquivo.md`.
+8. âœ… **Nunca editar `raw/`**.
+9. âœ… **Sync com GitHub semanal** via `/memory-consolidate`.
+10. âœ… **HipÃ³teses nÃ£o-validadas** com `ðŸŸ¡ HIPÃ“TESE`.
+11. âœ… **Migrations nÃ£o entram em `index.md`** â€” sÃ³ canvas e overview.
 
 ---
 
-## 🎨 Obsidian Canvas (`wiki/tracking.canvas`)
+## ðŸ› ï¸ As 5 OperaÃ§Ãµes
 
-Formato JSON nativo do Obsidian. Dois tipos de nó:
+(Ver `D:/CÃ³digos/Tzolkin/.tzolkin/karpathy/commands/*.md` para procedimentos completos.)
 
-- `"type": "text"` — marcos cronológicos (datas, milestones, epics).
-- `"type": "file"`, `"file": "knowledge-base/wiki/..."` — nó que embeda uma página da wiki.
-
-Edges (setas) conectam a evolução cronológica. Sempre que uma feature fecha um epic ou uma decisão muda a direção, adicionar nó + edge.
+- **`/memory-ingest <arquivo>`** â€” LÃª fonte, cria pÃ¡gina com namespace, atualiza index+log+canvas.
+- **`/memory-query <pergunta>`** â€” LÃª index, sintetiza resposta, oferece arquivar em `outputs/`.
+- **`/memory-lint`** â€” Auditoria: links, Ã³rfÃ£s, hipÃ³teses pendentes, frontmatter, namespace consistente.
+- **`/memory-consolidate`** â€” Correlaciona `git log` com wiki, gera `migrations/YYYY-MM-DD.md`.
+- **`/commit [tipo: msg]`** â€” Ingest + git commit + push + canvas (nÃ³ verde) em 1 passo.
 
 ---
 
-## 🔗 GitHub Correlation
+## ðŸŽ¨ Canvas (`wiki/tracking.canvas`)
 
-`knowledge-base/git/config.json` guarda o remote alvo:
+**Layout:** timeline horizontal de save-dates no topo, file-nodes verticais abaixo (estilo `haylanderform`).
+
+**Paleta oficial:**
+
+| Tipo                  | Cor          | CÃ³digo  |
+| --------------------- | ------------ | ------- |
+| Save-date             | Cinza        | _none_  |
+| Commit                | Verde        | `"4"`   |
+| DecisÃ£o/Fix           | Laranja      | `"2"`   |
+| TODO/Red-flag         | Vermelho     | `"1"`   |
+| Ingest                | Roxo         | `"6"`   |
+| ConsolidaÃ§Ã£o          | Ciano        | `"5"`   |
+| Marco/PrÃ³ximos        | Amarelo      | `"3"`   |
+| PÃ¡gina de wiki        | _file node_  | â€”       |
+
+---
+
+## ðŸ”— GitHub Correlation
+
+`knowledge-base/git/config.json` â€” campos `remote`, `branch`, `path`.
+
+Como o projeto Assinatura tem 2 sub-pastas com cÃ³digo (`Bot_Gabi/`, `designer/`), o `path` aponta para a raiz: o `/memory-consolidate` percorre commits em ambos.
 
 ```json
-{ "remote": "https://github.com/<user>/<repo>", "branch": "main" }
+{
+  "remote": "https://github.com/<user>/<repo>",
+  "branch": "main",
+  "path": ".."
+}
 ```
 
-Gerado na primeira execução de `/memory-consolidate`. O comando pergunta ao usuário se o arquivo não existir.
+(`..` porque a KB estÃ¡ em `Assinatura/knowledge-base/` e o git estÃ¡ em `Assinatura/` ou raiz do projeto. Ajustar conforme o setup real do git.)
 
 ---
 
-## ✅ Fluxo típico (exemplo)
+**VersÃ£o:** 2.0
+**Data:** 2026-05-14
+**Mantenedor:** Tzolkin (Gustavo + Lucas) + Claude (Code + Cowork)
+**ReferÃªncia:** `D:/CÃ³digos/Tzolkin/.tzolkin/karpathy/`
 
-```
-Segunda 10h — /memory-query "Estado atual da integração Serpro?"
-Quarta 14h — termina feature → /memory-ingest docs/feature-multi-empresa.md
-Sexta 16h — bug descoberto → cria security/cert-expiracao.md → /memory-ingest <arquivo>
-Segunda 9h (auto) — /memory-consolidate → migrations/2026-04-27.md
-```
-
----
-
-**Versão:** 1.0
-**Data:** 2026-04-22
-**Mantenedor:** Claude (Code + Cowork)
