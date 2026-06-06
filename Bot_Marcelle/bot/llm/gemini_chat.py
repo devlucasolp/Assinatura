@@ -146,7 +146,7 @@ async def update_task_fields(
 async def delete_task_from_asana(task_gid: str) -> str:
     """
     Exclui uma tarefa no Asana pelo GID.
-    
+
     Args:
         task_gid: O GID da tarefa no Asana.
     """
@@ -156,6 +156,41 @@ async def delete_task_from_asana(task_gid: str) -> str:
         return f"Tarefa {task_gid} deletada com sucesso."
     except Exception as e:
         return f"Erro ao deletar tarefa: {str(e)}"
+
+
+async def python_exec(code: str) -> str:
+    """
+    Executa código Python em sandbox isolada para fazer cálculos, análises de dados,
+    manipulação de strings/datas, geração de gráficos ou qualquer computação ad-hoc.
+
+    Bibliotecas disponíveis: numpy, pandas, matplotlib, scipy, httpx, requests, datetime, json, re.
+
+    Use quando o pedido envolver:
+    - Cálculos não-triviais (médias, projeções, estatísticas, conversões)
+    - Análise de dados em formato tabular
+    - Manipulação de datas e cronogramas
+    - Qualquer tarefa onde código resolve melhor que texto.
+
+    NÃO use para:
+    - Operações no Asana (use as ferramentas dedicadas)
+    - Conversa simples (responda direto)
+
+    Args:
+        code: Código Python completo que imprime o resultado via print().
+              A última linha deve produzir o output via print() — return não funciona.
+              Exemplo: "import pandas as pd\\ndf = pd.DataFrame({'a':[1,2,3]})\\nprint(df.sum())"
+    """
+    from integrations.sandbox import execute_python
+    instance = get_current_instance()
+    try:
+        result = await execute_python(
+            code=code,
+            instance_id=instance.get("id", "default"),
+            origin="gemini",
+        )
+        return result.to_llm_message()
+    except Exception as e:
+        return f"Erro ao executar código: {str(e)}"
 
 
 def _get_model_with_tools():
@@ -173,7 +208,8 @@ def _get_model_with_tools():
             add_comment_to_task_tool,
             complete_task_in_asana,
             update_task_fields,
-            delete_task_from_asana
+            delete_task_from_asana,
+            python_exec,
         ]
     )
 
@@ -210,6 +246,12 @@ SYSTEM_PROMPT_GABI = """Você é a Fernanda, secretária executiva particular da
 - Se ela pedir para marcar como concluída, atualizar ou deletar, faça o mesmo: busque pelo nome para obter o GID e depois chame a ferramenta correspondente.
 - Forneça os links reais das tarefas (permalink_url) retornados pelas ferramentas nas suas respostas.
 - NUNCA invente GIDs ou links do Asana.
+
+## Cálculos e análises (ferramenta `python_exec`)
+
+- Para qualquer cálculo não-trivial (médias, projeções, contagens com filtros, conversões de unidades, análise de datas, estatísticas), use a ferramenta `python_exec` em vez de calcular mentalmente.
+- O código deve imprimir o resultado via `print()`. Bibliotecas disponíveis: numpy, pandas, matplotlib, scipy, httpx, requests, datetime.
+- Para perguntas simples ("quanto é 2+2"), responda direto sem usar a ferramenta.
 
 ## Regras inegociáveis
 
@@ -403,6 +445,9 @@ async def process_user_message(phone: str, message: str) -> str:
                     elif name == "delete_task_from_asana":
                         task_gid = args.get("task_gid", "")
                         result_str = await delete_task_from_asana(task_gid=task_gid)
+                    elif name == "python_exec":
+                        code = args.get("code", "")
+                        result_str = await python_exec(code=code)
                     else:
                         result_str = f"Erro: Ferramenta '{name}' não encontrada."
                 except Exception as exc:

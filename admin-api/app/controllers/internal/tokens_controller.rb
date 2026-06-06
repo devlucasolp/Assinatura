@@ -21,6 +21,15 @@ module Internal
       render json: serialize(token)
     end
 
+    # GET /internal/sandbox_allowlist/:instance_id
+    # Lista hosts permitidos para a sandbox da instância. Consumido pelo egress-proxy.
+    def sandbox_allowlist
+      entries = SandboxAllowlistEntry
+                  .where(instance_id: params[:instance_id])
+                  .pluck(:host_pattern)
+      render json: { instance_id: params[:instance_id], allow: entries }
+    end
+
     # POST /internal/connector_tokens
     # Recebe token do Python após OAuth e persiste no banco.
     def upsert

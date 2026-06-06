@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Bot, Settings, Users, FileText, Plug, ChevronDown, X, Moon, Sun, LogOut, Puzzle, Sliders } from 'lucide-react'
+import { LayoutDashboard, Bot, Settings, Users, FileText, Plug, ChevronDown, X, Moon, Sun, LogOut, Puzzle, Sliders, Box } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useShell } from '@/contexts/ShellContext'
 import type { UserRole } from '@/types'
@@ -21,6 +21,7 @@ const NAV: NavItem[] = [
     children: [
       { label: 'Conectores',   href: '/settings/conectores',   icon: Plug },
       { label: 'Skills',       href: '/settings/skills',       icon: Puzzle },
+      { label: 'Sandbox',      href: '/settings/sandbox',      icon: Box },
       { label: 'Equipe',       href: '/settings/team',         icon: Users },
       { label: 'Logs',         href: '/settings/logs',         icon: FileText },
     ],

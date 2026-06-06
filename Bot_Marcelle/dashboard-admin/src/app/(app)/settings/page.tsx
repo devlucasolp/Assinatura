@@ -1,10 +1,11 @@
 import { requireAdmin } from '@/lib/auth'
 import Link from 'next/link'
-import { Users, FileText, Plug, Puzzle, ChevronRight } from 'lucide-react'
+import { Users, FileText, Plug, Puzzle, Box, ChevronRight } from 'lucide-react'
 
 const items = [
   { href: '/settings/conectores', icon: Plug,     label: 'Conectores', description: 'Contas da equipe — Asana, Google Drive e outros serviços.' },
   { href: '/settings/skills',     icon: Puzzle,   label: 'Skills',     description: 'Habilidades disponíveis para os bots.' },
+  { href: '/settings/sandbox',    icon: Box,      label: 'Sandbox',    description: 'Histórico de execuções de código Python pelos bots.' },
   { href: '/settings/team',       icon: Users,    label: 'Equipe',     description: 'Membros e permissões de acesso ao painel.' },
   { href: '/settings/logs',       icon: FileText, label: 'Logs',       description: 'Histórico de interações e auditoria dos bots.' },
 ]

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get  "tokens/:connector",               to: "tokens#show",          constraints: { connector: /[^\/]+/ }
     get  "tokens/:connector/:instance_id",  to: "tokens#show_instance", constraints: { connector: /[^\/]+/, instance_id: /[^\/]+/ }
     post "connector_tokens",                to: "tokens#upsert"
+    get  "sandbox_allowlist/:instance_id",  to: "tokens#sandbox_allowlist", constraints: { instance_id: /[^\/]+/ }
   end
 
   namespace :api do
@@ -26,6 +27,9 @@ Rails.application.routes.draw do
       # Skills (catálogo built-in editável — nome/descrição overridable)
       resources :skills, only: [ :index, :update, :destroy ], constraints: { id: /[a-z_]+/ }
 
+      # Sandbox runs (somente leitura — escrita vem do worker)
+      resources :sandbox_runs, only: [ :index, :show ]
+
       # Instances
       resources :instances, except: [ :new, :edit ] do
         member do
@@ -34,6 +38,9 @@ Rails.application.routes.draw do
         end
 
         resources :custom_skills, only: [ :index, :show, :create, :update, :destroy ]
+
+        resources :sandbox_allowlist, only: [ :index, :create, :destroy ],
+                  controller: "sandbox_allowlist"
       end
 
       # Connectors

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_06_053648) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_06_065106) do
   create_schema "bots"
 
   # These are extensions that must be enabled in order to support this database
@@ -101,6 +101,33 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_053648) do
     t.index ["email"], name: "index_invites_on_email"
     t.index ["invited_by_id"], name: "index_invites_on_invited_by_id"
     t.index ["token"], name: "index_invites_on_token", unique: true
+  end
+
+  create_table "bots.sandbox_allowlist", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "host_pattern", null: false
+    t.string "instance_id", null: false
+    t.string "note"
+    t.datetime "updated_at", null: false
+    t.index ["instance_id", "host_pattern"], name: "index_sandbox_allowlist_on_instance_id_and_host_pattern", unique: true
+    t.index ["instance_id"], name: "index_sandbox_allowlist_on_instance_id"
+  end
+
+  create_table "bots.sandbox_runs", force: :cascade do |t|
+    t.text "code", null: false
+    t.datetime "created_at", null: false
+    t.integer "duration_ms"
+    t.integer "exit_code"
+    t.string "instance_id", null: false
+    t.string "kill_reason"
+    t.boolean "killed", default: false, null: false
+    t.integer "memory_peak_mb"
+    t.string "origin"
+    t.text "stderr"
+    t.text "stdout"
+    t.index ["created_at"], name: "index_sandbox_runs_on_created_at"
+    t.index ["instance_id", "created_at"], name: "index_sandbox_runs_on_instance_id_and_created_at"
+    t.index ["instance_id"], name: "index_sandbox_runs_on_instance_id"
   end
 
   create_table "bots.skill_customizations", force: :cascade do |t|

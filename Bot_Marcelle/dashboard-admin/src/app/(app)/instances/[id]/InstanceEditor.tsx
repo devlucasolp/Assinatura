@@ -11,6 +11,7 @@ import { Toggle } from '@/components/ui/Toggle'
 import { useToast } from '@/contexts/ToastContext'
 import { SkillsTab } from './SkillsTab'
 import { CustomSkillsSection } from './CustomSkillsSection'
+import { SandboxAllowlistSection } from './SandboxAllowlistSection'
 import type { Instance } from '@/types'
 
 type Tab = 'geral' | 'persona' | 'mensagens' | 'skills' | 'automacoes'
@@ -337,6 +338,13 @@ export function InstanceEditor({ instance }: { instance: Instance | null }) {
                 {F('Timezone', 'briefing_timezone', { placeholder: 'America/Sao_Paulo', description: 'Formato IANA. Ex: America/Sao_Paulo, America/New_York.' })}
               </div>
             </section>
+
+            {!isNew && (
+              <>
+                <div className="border-t border-zinc-100 dark:border-zinc-800" />
+                <SandboxAllowlistSection instanceId={instance.id} />
+              </>
+            )}
           </div>
         )}
       </div>

@@ -1,0 +1,62 @@
+# Sandbox stack — worker + egress proxy + imagem da sandbox
+#
+# Build manual da imagem da sandbox (uma vez ou quando atualizar libs):
+#   docker build -t tzolkin/sandbox-py:v1 ./image
+#
+# Redes:
+#   app-net      — sandbox-worker fala com Rails/bot
+#   sandbox-net  — APENAS containers efêmeros + egress proxy
+#                  Sem rota para Rails/Postgres/Redis
+#
+# Em produção, app-net é criada pelo compose principal (externa).
+
+services:
+  sandbox-egress:
+    build: ../sandbox-egress
+    image: tzolkin/sandbox-egress:v1
+    container_name: sandbox-egress
+    restart: unless-stopped
+    environment:
+      - RAILS_API_URL=${RAILS_API_URL:-http://admin-api:3000}
+      - BOT_SERVICE_KEY=${BOT_SERVICE_KEY}
+      - LISTEN_PORT=8888
+      - ALLOWLIST_TTL_SECONDS=30
+    networks:
+      - app-net        # consulta Rails
+      - sandbox-net    # recebe dos containers
+    expose:
+      - "8888"
+
+  sandbox-worker:
+    build: .
+    image: tzolkin/sandbox-worker:v1
+    container_name: sandbox-worker
+    restart: unless-stopped
+    depends_on:
+      - sandbox-egress
+    environment:
+      - BOT_SERVICE_KEY=${BOT_SERVICE_KEY}
+      - SANDBOX_IMAGE=tzolkin/sandbox-py:v1
+      - DATABASE_URL=${DATABASE_URL}
+      - LOG_RUNS=true
+      # Rede dos containers efêmeros — eles ficam ISOLADOS de app-net
+      - SANDBOX_NETWORK=sandbox-net
+      # Proxy obrigatório pros containers efêmeros (URL resolvida pelo DNS do compose)
+      - EGRESS_PROXY_URL=http://sandbox-egress:8888
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - app-net
+    expose:
+      - "8001"
+
+networks:
+  app-net:
+    external: true
+  sandbox-net:
+    driver: bridge
+    internal: false       # precisa ter saída pra internet (egress proxy filtra)
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/24
