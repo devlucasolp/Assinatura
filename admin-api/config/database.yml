@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # Usa o schema 'bots' compartilhado com o bot Python
+  schema_search_path: "bots,public"
+
+development:
+  <<: *default
+  url: <%= ENV.fetch("DATABASE_URL", "postgres://postgres:postgres@localhost:5432/assinatura_bot") %>
+
+test:
+  <<: *default
+  url: <%= ENV.fetch("DATABASE_URL_TEST", "postgres://postgres:postgres@localhost:5432/assinatura_bot_test") %>
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
