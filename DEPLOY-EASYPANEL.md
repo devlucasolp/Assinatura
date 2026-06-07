@@ -8,7 +8,9 @@ Guia para subir a stack nova (admin-api, dashboard-admin, Bot_Marcelle, sandbox)
 - [ ] Instância Evolution dedicada de teste (ex: `secretaria_test`) com número WhatsApp separado
 - [ ] Repo Git criado e acessível (ver Etapa 0)
 - [ ] SSH no servidor (pra build manual de 1 imagem)
-- [ ] Postgres e Redis já existem como apps no mesmo projeto EasyPanel (Bot_Gabi já usa)
+- [ ] Postgres e Redis já existem (em projeto **separado** — mesma string que Bot_Gabi usa hoje)
+
+> **Topologia:** Postgres e Redis rodam em outra rede (open source, projeto separado). Bot_Gabi e os novos apps ficam todos no projeto **`assinatura`** e acessam Postgres/Redis pelos **endpoints externos** (mesma URL que Bot_Gabi já tem no `.env`).
 
 ---
 
@@ -70,9 +72,8 @@ git push -u origin main
 ```env
 RAILS_ENV=production
 
-# Postgres do EasyPanel — usa NOME INTERNO do service (não o externo)
-# Confere com: docker ps | grep postgres ; o nome curto é o hostname
-DATABASE_URL=postgres://postgres:SENHA@postgres:5432/assinatura_bot?sslmode=disable
+# Postgres está em outro projeto — usa o endpoint EXTERNO (mesma URL que Bot_Gabi)
+DATABASE_URL=postgres://postgres:SENHA@easypanel.landcriativa.com:9000/assinatura_bot?sslmode=disable
 
 # Segredo do JWT — TEM QUE SER IDÊNTICO no dashboard-admin (passo 2)
 JWT_SECRET=COLE-UMA-STRING-ALEATORIA-LONGA-AQUI
@@ -179,13 +180,13 @@ docker images | grep sandbox-py     # confere
 
 ## Passo 4 — sandbox (Compose)
 
-### 4.1 — Descobre o nome da network do projeto
+### 4.1 — Confirma o nome exato da network do projeto `assinatura`
 
 ```bash
-docker network ls | grep -i <nome-do-projeto-easypanel>
+docker network ls | grep -i assinatura
 ```
 
-Anota o nome (algo como `proj-XXX_default`).
+Deve aparecer algo como `assinatura_default` ou simplesmente `assinatura`. Anota o nome exato — usa em **4.3**.
 
 ### 4.2 — Decide como o EasyPanel vai puxar o código
 
@@ -231,8 +232,9 @@ services:
     environment:
       BOT_SERVICE_KEY: COLE-AQUI-A-KEY-DO-PASSO-1
       SANDBOX_IMAGE: tzolkin/sandbox-py:v1
-      DATABASE_URL: postgres://postgres:SENHA@postgres:5432/assinatura_bot?sslmode=disable
-      REDIS_URL: redis://default:SENHA@redis:6379
+      # Mesmos endpoints externos que o Bot_Gabi usa
+      DATABASE_URL: postgres://postgres:SENHA@easypanel.landcriativa.com:9000/assinatura_bot?sslmode=disable
+      REDIS_URL: redis://default:SENHA@easypanel.landcriativa.com:PORTA
       SANDBOX_NETWORK: sandbox-net
       EGRESS_PROXY_URL: http://sandbox-egress:8888
       LOG_RUNS: "true"
@@ -244,7 +246,7 @@ services:
 networks:
   app-shared:
     external: true
-    name: NOME-DA-NETWORK-DESCOBERTA-EM-4.1
+    name: assinatura      # ou o nome exato descoberto em 4.1
   sandbox-net:
     driver: bridge
     ipam:
@@ -273,9 +275,9 @@ networks:
 **Env Vars:**
 
 ```env
-# Infra (mesmo padrão do Bot_Gabi, NOMES INTERNOS)
-POSTGRES_URL=postgres://postgres:SENHA@postgres:5432/assinatura_bot?sslmode=disable
-REDIS_URL=redis://default:SENHA@redis:6379
+# Infra — MESMOS endpoints externos que Bot_Gabi
+POSTGRES_URL=postgres://postgres:SENHA@easypanel.landcriativa.com:9000/assinatura_bot?sslmode=disable
+REDIS_URL=redis://default:SENHA@easypanel.landcriativa.com:PORTA
 
 # Evolution
 EVOLUTION_API_URL=https://evolutionapi.landcriativa.com
@@ -370,4 +372,6 @@ docker exec -e BOT_SERVICE_KEY="$KEY" sandbox-worker \
 | Botão "Entrar com Google" dá erro | Esperado neste deploy (Google OAuth desabilitado). Use email/senha |
 | **Perdeu a BOT_SERVICE_KEY** | `docker exec admin-api bin/rails runner "puts BotServiceKey.value"` |
 | **Atualizou código no GitHub mas EasyPanel não pegou** | Apps: clica "Deploy" no app. Sandbox compose: `cd /opt/assinatura && git pull` no servidor + clica "Redeploy" |
-| **Postgres pede usuário/senha** | Verifica nome do app Postgres no EasyPanel (pode não ser literal `postgres`) e usuário (pode ser `postgres` ou `app`) |
+| **Postgres pede usuário/senha** | Confere a URL externa no `.env` do Bot_Gabi e copia exatamente |
+| **`assinatura` network não encontrada** | Roda `docker network ls \| grep -i assinatura` e usa o nome exato no compose. Pode ser `assinatura`, `assinatura_default` ou outro |
+| **Sandbox containers não falam com sandbox-egress** | Containers efêmeros são criados pelo worker na `sandbox-net` — confere que o `SANDBOX_NETWORK=sandbox-net` está nas env vars do worker |
