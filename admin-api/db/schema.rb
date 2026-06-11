@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_06_065106) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_11_064548) do
   create_schema "bots"
 
   # These are extensions that must be enabled in order to support this database
@@ -130,6 +130,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_065106) do
     t.index ["instance_id"], name: "index_sandbox_runs_on_instance_id"
   end
 
+  create_table "bots.scheduled_tasks", force: :cascade do |t|
+    t.text "code", null: false
+    t.datetime "created_at", null: false
+    t.string "cron_expression", null: false
+    t.boolean "enabled", default: true, null: false
+    t.string "instance_id", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instance_id"], name: "index_scheduled_tasks_on_instance_id"
+  end
+
   create_table "bots.skill_customizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "custom_description"
@@ -150,6 +161,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_065106) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["google_sub"], name: "index_users_on_google_sub", unique: true, where: "(google_sub IS NOT NULL)"
+  end
+
+  create_table "bots.webhooks", force: :cascade do |t|
+    t.text "code", null: false
+    t.datetime "created_at", null: false
+    t.boolean "enabled", default: true, null: false
+    t.string "instance_id", null: false
+    t.string "slug", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instance_id", "slug"], name: "index_webhooks_on_instance_id_and_slug", unique: true
   end
 
 end

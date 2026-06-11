@@ -38,6 +38,8 @@ Rails.application.routes.draw do
         end
 
         resources :custom_skills, only: [ :index, :show, :create, :update, :destroy ]
+        resources :scheduled_tasks, only: [ :index, :show, :create, :update, :destroy ]
+        resources :webhooks, only: [ :index, :show, :create, :update, :destroy ]
 
         resources :sandbox_allowlist, only: [ :index, :create, :destroy ],
                   controller: "sandbox_allowlist"
