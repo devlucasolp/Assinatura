@@ -88,8 +88,10 @@ module Api
         req = Net::HTTP::Get.new(uri)
         req["Authorization"] = "Bearer #{token}"
         res = Net::HTTP.start(uri.host, uri.port, use_ssl: true) { |h| h.request(req) }
+        Rails.logger.info("GOOGLE USERINFO: #{res.code} - #{res.body}")
         res.is_a?(Net::HTTPSuccess) ? JSON.parse(res.body) : nil
-      rescue StandardError
+      rescue StandardError => e
+        Rails.logger.error("GOOGLE USERINFO ERROR: #{e.message}")
         nil
       end
 

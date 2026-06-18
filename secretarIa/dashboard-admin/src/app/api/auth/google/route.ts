@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 
 export async function GET() {
+  cookies()
   const clientId = process.env.GOOGLE_CLIENT_ID
-  const redirectUri = process.env.GOOGLE_OAUTH_REDIRECT_URI
+  const redirectUri = 'http://127.0.0.1:3000/api/auth/google/callback'
 
   if (!clientId || !redirectUri) {
     return NextResponse.json(

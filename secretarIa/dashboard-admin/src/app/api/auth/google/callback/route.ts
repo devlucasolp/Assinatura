@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   const state = searchParams.get('state')
   const error = searchParams.get('error')
 
-  const loginUrl = new URL('/login', req.nextUrl.origin)
+  const loginUrl = new URL('/login', 'http://127.0.0.1:3000')
 
   if (error) {
     loginUrl.searchParams.set('error', 'google_denied')
@@ -33,6 +33,7 @@ export async function GET(req: NextRequest) {
   const cookieState = req.cookies.get('oauth_state')?.value
   if (!state || !cookieState || state !== cookieState) {
     loginUrl.searchParams.set('error', 'invalid_state')
+    loginUrl.searchParams.set('details', `s=${state}-c=${cookieState || 'missing'}`)
     return NextResponse.redirect(loginUrl)
   }
 
@@ -41,12 +42,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  const redirectUri = process.env.GOOGLE_LOGIN_REDIRECT_URI ||
-    `${req.nextUrl.origin}/api/auth/google/callback`
+  const redirectUri = 'http://127.0.0.1:3000/api/auth/google/callback'
 
   const tokens = await exchangeCode(code, redirectUri)
   if (tokens.error || !tokens.access_token) {
     loginUrl.searchParams.set('error', 'token_exchange')
+    loginUrl.searchParams.set('details', tokens.error || 'no_access_token')
     return NextResponse.redirect(loginUrl)
   }
 
@@ -54,8 +55,9 @@ export async function GET(req: NextRequest) {
   let railsRes: Response
   try {
     railsRes = await railsPost('/api/v1/auth/sessions', { google_token: tokens.access_token })
-  } catch {
+  } catch (e: any) {
     loginUrl.searchParams.set('error', 'token_exchange')
+    loginUrl.searchParams.set('details', 'rails_connection_failed')
     return NextResponse.redirect(loginUrl)
   }
 
@@ -67,7 +69,7 @@ export async function GET(req: NextRequest) {
 
   const { token } = await railsRes.json()
 
-  const res = NextResponse.redirect(new URL('/instances', req.nextUrl.origin))
+  const res = NextResponse.redirect(new URL('/instances', 'http://127.0.0.1:3000'))
   res.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

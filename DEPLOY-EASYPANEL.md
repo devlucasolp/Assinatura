@@ -4,11 +4,11 @@ Guia para subir a stack nova (admin-api, dashboard-admin, Bot_Marcelle, sandbox)
 
 ## Pré-requisitos
 
-- [ ] Bot_Gabi continua rodando (não mexer)
-- [ ] Instância Evolution dedicada de teste (ex: `secretaria_test`) com número WhatsApp separado
-- [ ] Repo Git criado e acessível (ver Etapa 0)
-- [ ] SSH no servidor (pra build manual de 1 imagem)
-- [ ] Postgres e Redis já existem (em projeto **separado** — mesma string que Bot_Gabi usa hoje)
+- [V ] Bot_Gabi continua rodando (não mexer)
+- [V ] Instância Evolution dedicada de teste (ex: `secretaria_test`) com número WhatsApp separado
+- [V ] Repo Git criado e acessível (ver Etapa 0)
+- [V ] SSH no servidor (pra build manual de 1 imagem)
+- [V ] Postgres e Redis já existem (em projeto **separado** — mesma string que Bot_Gabi usa hoje)
 
 > **Topologia:** Postgres e Redis rodam em outra rede (open source, projeto separado). Bot_Gabi e os novos apps ficam todos no projeto **`assinatura`** e acessam Postgres/Redis pelos **endpoints externos** (mesma URL que Bot_Gabi já tem no `.env`).
 
