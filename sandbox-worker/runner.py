@@ -93,10 +93,7 @@ def run_code(
             cap_drop=["ALL"],
             security_opt=["no-new-privileges:true"],
 
-            # Capturar logs
-            stdout=True,
-            stderr=True,
-            detach=True,
+            # Configuracao extra
             auto_remove=False,                           # removemos manualmente após coletar stats
         )
     except ImageNotFound:
