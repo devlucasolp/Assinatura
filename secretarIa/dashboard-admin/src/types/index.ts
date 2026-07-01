@@ -19,8 +19,6 @@ export type Instance = {
   asana_section_gid?: string
   asana_user_gid?: string
   gemini_api_key?: string
-  openai_api_key?: string
-  openai_model?: string
   msg_auto_reply_meeting?: string
   msg_auto_reply_event?: string
   msg_status_meeting_on?: string

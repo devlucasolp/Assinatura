@@ -11,12 +11,4 @@ class Instance < ApplicationRecord
   validates :briefing_afternoon, format: { with: TIME_FORMAT, message: "deve ser HH:MM" }, allow_blank: true
   validates :briefing_evening,   format: { with: TIME_FORMAT, message: "deve ser HH:MM" }, allow_blank: true
   validates :new_tasks_poll_minutes, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1440 }, allow_nil: true
-
-  before_validation :set_defaults
-
-  private
-
-  def set_defaults
-    self.openai_model = "gpt-4o" if openai_model.blank?
-  end
 end

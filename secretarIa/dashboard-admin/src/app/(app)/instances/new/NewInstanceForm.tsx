@@ -20,7 +20,6 @@ const TABS: { id: Tab; label: string }[] = [
 ]
 
 const DEFAULTS: Partial<Instance> = {
-  openai_model: 'gpt-4o',
   msg_auto_reply_meeting: 'Oi! Estou em reunião no momento.',
   msg_auto_reply_event: 'Oi! Estou em um evento no momento.',
   msg_status_meeting_on: 'Modo Reunião ativado.',
@@ -141,8 +140,6 @@ export function NewInstanceForm() {
           {tab === 'ia' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {field('Gemini API Key', 'gemini_api_key', { type: 'password' })}
-              {field('OpenAI API Key', 'openai_api_key', { type: 'password' })}
-              {field('Modelo OpenAI', 'openai_model', { placeholder: 'gpt-4o' })}
             </div>
           )}
           {tab === 'mensagens' && (

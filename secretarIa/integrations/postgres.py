@@ -134,16 +134,15 @@ async def upsert_instance(data: dict) -> dict:
         "phone_primary", "phone_secondary",
         "asana_access_token", "asana_workspace_gid", "asana_project_gid",
         "asana_section_gid", "asana_user_gid",
-        "gemini_api_key", "openai_api_key", "openai_model",
+        "gemini_api_key",
         "msg_auto_reply_meeting", "msg_auto_reply_event",
         "msg_status_meeting_on", "msg_status_event_on",
         "msg_status_off", "msg_greeting",
         "is_active",
     ]
     _bool_fields = {"is_active"}
-    _str_defaults = {"openai_model": "gpt-4o"}
     values = [
-        data.get(f, _str_defaults.get(f, "") if f not in _bool_fields else True)
+        data.get(f, "" if f not in _bool_fields else True)
         for f in fields
     ]
     set_clause = ", ".join(
@@ -162,6 +161,24 @@ async def upsert_instance(data: dict) -> dict:
     result = dict(row)
     postgres_logger.info(f"Instância upserted | id: {result['id']} | name: {result['name']}")
     return result
+
+
+async def update_instance_fields(instance_id: str, fields: dict) -> dict | None:
+    """Atualiza apenas as colunas dadas (update parcial — usado pela config de conectores B6).
+
+    ATENÇÃO: os nomes de coluna devem vir de uma whitelist (registro de conectores),
+    nunca de input livre do usuário — são interpolados no SQL.
+    """
+    if not fields:
+        return await get_instance(instance_id)
+    keys = list(fields.keys())
+    set_clause = ", ".join(f"{k} = ${i + 2}" for i, k in enumerate(keys))
+    sql = f"UPDATE bots.instances SET {set_clause}, updated_at = NOW() WHERE id = $1 RETURNING *"
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow(sql, instance_id, *[fields[k] for k in keys])
+    postgres_logger.info(f"[INSTANCE] Campos atualizados | id: {instance_id} | {keys}")
+    return dict(row) if row else None
 
 
 async def delete_instance(instance_id: str) -> bool:

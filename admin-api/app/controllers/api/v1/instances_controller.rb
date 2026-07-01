@@ -40,7 +40,7 @@ module Api
           :phone_primary, :phone_secondary,
           :asana_access_token, :asana_workspace_gid, :asana_project_gid,
           :asana_section_gid, :asana_user_gid,
-          :gemini_api_key, :openai_api_key, :openai_model,
+          :gemini_api_key,
           :msg_auto_reply_meeting, :msg_auto_reply_event,
           :msg_status_meeting_on, :msg_status_event_on, :msg_status_off, :msg_greeting,
           :assistant_name, :system_prompt,

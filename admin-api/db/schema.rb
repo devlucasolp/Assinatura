@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_11_064548) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_01_160000) do
   create_schema "bots"
 
   # These are extensions that must be enabled in order to support this database
@@ -79,8 +79,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_11_064548) do
     t.text "msg_status_off", default: "", null: false
     t.text "name", null: false
     t.integer "new_tasks_poll_minutes"
-    t.text "openai_api_key", default: "", null: false
-    t.text "openai_model", default: "gpt-4o", null: false
     t.text "phone_primary", default: "", null: false
     t.text "phone_secondary", default: "", null: false
     t.text "system_prompt", default: "", null: false

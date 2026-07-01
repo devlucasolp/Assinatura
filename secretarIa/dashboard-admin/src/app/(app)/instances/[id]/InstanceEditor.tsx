@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Trash2, Save, Settings2, Sparkles, MessageSquare, Puzzle, Zap, QrCode, X } from 'lucide-react'
+import { ArrowLeft, Trash2, Save, Settings2, Sparkles, MessageSquare, Puzzle, Zap, QrCode, X, Database } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
@@ -18,7 +18,7 @@ import { createAndGetQrCode } from './actions'
 import { ScheduledTasksTab } from './ScheduledTasksTab'
 import { WebhooksTab } from './WebhooksTab'
 
-type Tab = 'geral' | 'whatsapp' | 'persona' | 'mensagens' | 'skills' | 'automacoes' | 'agendamentos' | 'webhooks'
+type Tab = 'geral' | 'whatsapp' | 'persona' | 'mensagens' | 'skills' | 'automacoes' | 'contexto'
 
 const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: 'geral',      label: 'Geral',      icon: Settings2 },
@@ -27,8 +27,7 @@ const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: 'mensagens',  label: 'Mensagens',  icon: MessageSquare },
   { id: 'skills',     label: 'Skills',     icon: Puzzle },
   { id: 'automacoes', label: 'Automações', icon: Zap },
-  { id: 'agendamentos', label: 'Agendamentos', icon: Zap },
-  { id: 'webhooks', label: 'Webhooks', icon: Zap },
+  { id: 'contexto',   label: 'Contexto',   icon: Database },
 ]
 
 type FieldOpts = { type?: string; placeholder?: string; required?: boolean; disabled?: boolean; description?: string; span?: 'full' | 'half' }
@@ -47,7 +46,6 @@ export function InstanceEditor({ instance }: { instance: Instance | null }) {
   const [qrError, setQrError] = useState<string | null>(null)
 
   const [form, setForm] = useState<Partial<Instance>>(instance ?? {
-    openai_model: 'gpt-4o',
     msg_auto_reply_meeting: 'Oi! Estou em reunião no momento.',
     msg_auto_reply_event: 'Oi! Estou em um evento no momento.',
     msg_status_meeting_on: 'Modo Reunião ativado.',
@@ -218,8 +216,6 @@ export function InstanceEditor({ instance }: { instance: Instance | null }) {
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Credenciais usadas pelos modelos deste bot.</p>
               <div className="grid grid-cols-2 gap-x-6 gap-y-6">
                 {F('Gemini API Key', 'gemini_api_key', { type: 'password', span: 'full' })}
-                {F('OpenAI API Key', 'openai_api_key', { type: 'password', span: 'full' })}
-                {F('Modelo OpenAI', 'openai_model', { placeholder: 'gpt-4o', description: 'Ex: gpt-4o, gpt-4o-mini, gpt-4-turbo.' })}
               </div>
             </section>
           </div>
@@ -382,21 +378,33 @@ export function InstanceEditor({ instance }: { instance: Instance | null }) {
               <>
                 <div className="border-t border-zinc-100 dark:border-zinc-800" />
                 <SandboxAllowlistSection instanceId={instance.id} />
+
+                <div className="border-t border-zinc-100 dark:border-zinc-800" />
+                <section>
+                  <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-1">Agendamentos e webhooks (legado)</h3>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">
+                    Criados pela IA no modelo antigo. Serão substituídos pela nova UI unificada de automações.
+                  </p>
+                  <div className="flex flex-col gap-8">
+                    <ScheduledTasksTab instanceId={instance.id} />
+                    <WebhooksTab instanceId={instance.id} />
+                  </div>
+                </section>
               </>
             )}
           </div>
         )}
 
-        {tab === 'agendamentos' && !isNew && instance && (
-          <div className="space-y-6">
-            <ScheduledTasksTab instanceId={instance.id} />
-          </div>
-        )}
-
-        {tab === 'webhooks' && !isNew && instance && (
-          <div className="space-y-6">
-            <WebhooksTab instanceId={instance.id} />
-          </div>
+        {tab === 'contexto' && (
+          isNew
+            ? <div className="rounded-xl border border-dashed border-zinc-200 dark:border-zinc-800 px-6 py-12 text-center bg-white dark:bg-zinc-900">
+                <Database className="w-7 h-7 text-zinc-300 dark:text-zinc-600 mx-auto mb-3" />
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">Salve a instância primeiro para ver o contexto.</p>
+              </div>
+            : <div className="rounded-xl border border-dashed border-zinc-200 dark:border-zinc-800 px-6 py-16 text-center bg-white dark:bg-zinc-900">
+                <Database className="w-7 h-7 text-zinc-300 dark:text-zinc-600 mx-auto mb-3" />
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">Editor de estado da instância — em construção.</p>
+              </div>
         )}
       </div>
 

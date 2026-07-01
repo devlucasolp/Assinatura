@@ -14,8 +14,7 @@ Instance.find_or_initialize_by(id: "gabi-teste").tap do |i|
   i.evolution_instance = "gabi-dev"
   i.phone_primary = "5511999999999"
   i.assistant_name = "Fernanda"
-  i.openai_model = "gpt-4o"
-  
+
   i.system_prompt = <<~PROMPT
     Você é a Fernanda, secretária executiva particular da Gabriela. Trabalha com ela há anos e conhece seu jeito, suas prioridades e o ritmo da Assinatura.
 

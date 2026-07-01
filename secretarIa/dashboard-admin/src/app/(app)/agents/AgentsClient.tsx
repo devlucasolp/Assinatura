@@ -152,15 +152,6 @@ export function AgentsClient({ instances }: { instances: Instance[] }) {
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Chaves de acesso para os modelos de linguagem utilizados pelo agente.</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {field('Gemini API Key', 'gemini_api_key', { type: 'password', description: 'Chave da API do Google Gemini.' })}
-                    {field('OpenAI API Key', 'openai_api_key', { type: 'password', description: 'Chave da API da OpenAI.' })}
-                  </div>
-                </div>
-                <hr className="border-zinc-200 dark:border-zinc-800" />
-                <div>
-                  <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-1">Modelo</h3>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Modelo de IA utilizado nas respostas do agente.</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {field('Modelo OpenAI', 'openai_model', { placeholder: 'gpt-4o', description: 'Ex: gpt-4o, gpt-4o-mini, gpt-3.5-turbo' })}
                   </div>
                 </div>
               </div>
