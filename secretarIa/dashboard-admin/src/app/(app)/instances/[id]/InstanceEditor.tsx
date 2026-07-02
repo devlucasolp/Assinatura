@@ -209,7 +209,15 @@ export function InstanceEditor({ instance }: { instance: Instance | null }) {
               </div>
             </section>
 
-
+            <section>
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-1">Conexão</h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-4">Número do dono e instância na Evolution API.</p>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-6">
+                {F('Telefone principal', 'phone_primary', { placeholder: '5511999999999', required: true, description: 'Número autorizado a comandar o bot, com DDI e DDD.' })}
+                {F('Telefone secundário', 'phone_secondary', { placeholder: '5511988888888', description: 'Opcional. Segundo número autorizado.' })}
+                {F('Instância Evolution', 'evolution_instance', { placeholder: 'gabi-dev', required: true, span: 'full', description: 'Deve ser idêntico ao nome cadastrado na Evolution API.' })}
+              </div>
+            </section>
 
             <section>
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-1">Chaves de IA</h3>
